@@ -1,0 +1,349 @@
+body {
+    font-family: Helvetica, serif;
+    margin: 0;
+}
+
+*,
+*:before, /* не берет во внимание before и after - пишем отдельно*/
+*:after {
+    box-sizing: border-box; /*размер блока = размер + padding + граница*/
+}
+
+h1, h2, h3, h4, h5, h6 {
+    margin: 0;
+    /*убираем отступы сверху и снизу для всех заголовков*/
+}
+
+p {
+    margin: 0 0 10px; /*отступ только снизу*/
+}
+
+table{
+    border-collapse: collapse;
+    table-layout: fixed;
+    font-size: 12px;
+
+}
+
+.invoice-title {
+    width: 100%;
+    margin-bottom: 20px;
+}
+
+.invoice-title .col-1 {
+    width: 53%;
+
+}
+
+.invoice-title .col-2 {
+    width: 47%;
+    border-top: 3px solid black;
+
+}
+
+.invoice-title td{
+    padding: 10px 0 10px 0;
+    line-height: 25px;
+}
+
+.text-gray{
+    color: #5E5E5E;
+}
+
+.upc {
+    text-transform: uppercase;
+}
+
+.fs13 {
+    font-size: 13px;
+    font-weight: normal;
+}
+.main-title{
+    font-size: 24px;
+
+}
+
+
+.main-subtitle {
+    text-transform: uppercase;
+
+}
+
+.customer-supplier {
+    width: 100%;
+}
+
+.customer-supplier .col-1 {
+    width: 53%;
+
+}
+.customer-supplier .col-2 {
+    width: 47%;
+}
+
+.customer-supplier td {
+    padding: 5px 0 5px 0;
+}
+
+.customer-supplier-data {
+    width: 100%;
+    margin-bottom: 20px;
+}
+
+.customer-supplier-data .col-1 {
+    width: 53%;
+    line-height: 20px;
+
+}
+
+.customer-supplier-data .col-2 {
+    width: 47%;
+    line-height: 20px;
+}
+
+.supplier-registration-data {
+    width: 100%;
+    margin-bottom: 20px;
+}
+
+.supplier-registration-data td {
+    line-height: 20px;
+}
+
+.supplier-registration-data .col-1 {
+    width: 23%;
+}
+.supplier-registration-data .col-2 {
+    width: 23%;
+    text-align: right;
+}
+.supplier-registration-data .col-3 {
+    width: 7%;
+}
+.supplier-registration-data .col-4 {
+    width: 47%;
+}
+
+.order-data {
+    width: 100%;
+    margin-bottom: 25px;
+}
+
+.order-data td {
+    line-height: 20px;
+}
+
+.order-data .col-1 {
+    width: 23%;
+}
+.order-data .col-2 {
+    width: 23%;
+    text-align: right;
+}
+.order-data .col-3 {
+    width: 7%;
+}
+.order-data .col-4 {
+    width: 24%;
+}
+
+.order-data .col-5 {
+    width: 23%;
+    text-align: right;
+}
+
+
+.items {
+    width: 100%;
+    border-bottom: 0.5px solid #5E5E5E;
+}
+
+.items th {
+    line-height: 25px;
+    font-weight: normal;
+    font-size: 13px;
+    text-align: right;
+}
+
+.items .col-1 {
+    width: 3%;
+}
+
+.items .col-2 {
+    width: 6%;
+}
+
+.items .col-3 {
+    width: 34%;
+}
+
+.items .col-4 {
+    width: 8%;
+}
+
+.items .col-5 {
+    width: 15%;
+}
+
+.items .col-6 {
+    width: 17%;
+}
+
+.items .col-7 {
+    width: 17%;
+}
+
+.item {
+    width: 100%;
+
+}
+
+.item td {
+    padding: 5px 0 5px 0;
+    vertical-align: top;
+}
+
+
+.item .col-1 {
+    width: 3%;
+}
+
+.item .col-2 {
+    width: 6%;
+}
+
+.item .col-3 {
+    width: 34%;
+}
+
+.item .col-4 {
+    width: 8%;
+    text-align: right;
+}
+
+.item .col-5 {
+    width: 15%;
+    text-align: right;
+}
+
+.item .col-6 {
+    width: 17%;
+    text-align: right;
+}
+
+.item .col-7 {
+    width: 17%;
+    text-align: right;
+}
+
+
+.fees {
+    width: 100%;
+}
+
+.fees td {
+    padding: 5px 0 5px 0;
+    vertical-align: top;
+}
+
+.fees .col-1 {
+    width: 3%;
+}
+
+.fees .col-2 {
+    width: 6%;
+}
+
+.fees .col-3 {
+    width: 34%;
+}
+
+.fees .col-4 {
+    width: 8%;
+    text-align: right;
+}
+
+.fees .col-5 {
+    width: 15%;
+    text-align: right;
+}
+
+.fees .col-6 {
+    width: 17%;
+    text-align: right;
+}
+
+.fees .col-7 {
+    width: 17%;
+    text-align: right;
+}
+
+
+
+
+.line {
+    width: 100%;
+    border-top: 0.5px solid #5E5E5E;
+    margin-bottom: 30px;
+}
+
+
+
+.vat-total{
+    width: 100%;
+}
+
+.vat-total td {
+    text-align: right;
+    padding: 5px 0 5px 0;
+}
+
+.vat-total .col-1{
+    width: 40%;
+}
+
+.vat-total .col-2{
+    width: 11%;
+}
+
+.vat-total .col-3{
+    width: 15%;
+}
+
+.vat-total .col-4{
+    width: 17%;
+}
+
+.vat-total .col-5{
+    width: 17%;
+}
+
+.invoice-total-wrapper {
+
+    position: relative;
+
+}
+
+.invoice-total-right {
+    float: right;
+    width: 60%;
+}
+
+
+.invoice-total {
+    width: 100%;
+    border-top: 2px solid #5E5E5E;
+    margin-top: 5px;
+
+}
+.invoice-total .col-1 {
+    width: 70%;
+    font-size: 10px;
+}
+
+.invoice-total .col-2 {
+    width: 30%;
+    text-align: right;
+    font-size: 20px;
+    font-weight: bold;
+}

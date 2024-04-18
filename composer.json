@@ -1,0 +1,16 @@
+{
+
+    "name": "hp/lr-entry-export",
+
+    "autoload": {
+        "psr-4": {
+
+            "includes\\": "includes"
+        }
+    },
+
+    "require": {
+        "servo/fluidxml": "^1.21",
+        "mpdf/mpdf": "^8.1"
+    }
+}
