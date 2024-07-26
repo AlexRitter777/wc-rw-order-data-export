@@ -19,10 +19,6 @@ return [
 
     'RO' => [
         'english' => 'Romania',
-    ],
-
-    'SI' => [
-        'english' => 'Slovenia',
     ]
 
 ];

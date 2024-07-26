@@ -27,11 +27,6 @@ return [
 
     'BG' => [
         'BulgarskoZaklad' => 20,
-    ],
-
-    'SI' => [
-        'SlovinskoZaklad' => 22,
-        'SlovinskoSnizena' => 9.5,
     ]
 
 ];

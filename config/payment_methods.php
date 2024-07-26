@@ -8,7 +8,6 @@ return [
         'romanian' => '',
         'bulgarian' => '',
         'lithuanian' => '',
-        'slovenian' => '',
     ],
 
     'bacs' => [
@@ -17,7 +16,6 @@ return [
         'romanian' => '',
         'bulgarian' => '',
         'lithuanian' => '',
-        'slovenian' => '',
     ],
 
     'gpwebpaybinder' => [
@@ -26,7 +24,6 @@ return [
         'romanian' => '',
         'bulgarian' => '',
         'lithuanian' => '',
-        'slovenian' => '',
     ],
 
     'gpwebpaybindergooglepay' => [
@@ -35,7 +32,6 @@ return [
         'romanian' => '',
         'bulgarian' => '',
         'lithuanian' => '',
-        'slovenian' => '',
     ],
 
     'gpwebpaybinderapplepay' => [
@@ -44,8 +40,7 @@ return [
         'romanian' => '',
         'bulgarian' => '',
         'lithuanian' => '',
-        'slovenian' => '',
     ]
-
+    // PayU, GP web pay, Stripe , přidat v produkcii!!!
 
 ];

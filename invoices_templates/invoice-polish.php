@@ -109,7 +109,7 @@
             <tr>
                 <td class="col-1"><?=$item['quantity'] ?></td>
                 <td class="col-2">psc</td>
-                <td class="col-3"><?=$item['name'];?></td>
+                <td class="col-3"><?=str_replace("Omnipod 5", "Omnipod DASH", $item['name']);?></td>
                 <td class="col-4"><?=$item['tax_rate'];?> %</td>
                 <td class="col-5"><?=$item['unitPriceExcVat'];?></td>
                 <td class="col-6"><?=$item['allItemsPriceExlVat'];?></td>
