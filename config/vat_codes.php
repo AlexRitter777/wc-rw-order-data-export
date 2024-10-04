@@ -2,6 +2,7 @@
 /*
  * Learn plugin to choose right VAT code when there are same rates in different countries!!!
  * In this time is not actual!
+ * Move to settings
  */
 
 return [

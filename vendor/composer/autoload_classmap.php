@@ -7,4 +7,17 @@ $baseDir = dirname($vendorDir);
 
 return array(
     'Composer\\InstalledVersions' => $vendorDir . '/composer/InstalledVersions.php',
+    'Wc_Rw_Order_Data_Export_Csv_Creator' => $baseDir . '/modules/csv-export/wc-rw-order-data-export-csv-creator.php',
+    'Wc_Rw_Order_Data_Export_Csv_Data' => $baseDir . '/modules/csv-export/wc-rw-order-data-export-csv-data.php',
+    'Wc_Rw_Order_Data_Export_Csv_Report' => $baseDir . '/modules/csv-export/wc-rw-order-data-export-csv-report.php',
+    'Wc_Rw_Order_Data_Export_Data_Getter' => $baseDir . '/includes/class-wc-rw-order-data-export-data-getter.php',
+    'Wc_Rw_Order_Data_Export_Debug' => $baseDir . '/includes/class-wc-rw-order-data-export-debug.php',
+    'Wc_Rw_Order_Data_Export_Dpf_Data_Taxes_Off' => $baseDir . '/modules/pdf-invoices/class-wc-rw-order-data-export-pdf-data-taxes-off.php',
+    'Wc_Rw_Order_Data_Export_Dpf_Data_Taxes_On' => $baseDir . '/modules/pdf-invoices/class-wc-rw-order-data-export-pdf-data-taxes-on.php',
+    'Wc_Rw_Order_Data_Export_Init' => $baseDir . '/includes/class-wc-rw-order-data-export-init.php',
+    'Wc_Rw_Order_Data_Export_Pdf_Invoices' => $baseDir . '/modules/pdf-invoices/class-wc-rw-order-data-export-pdf-invoices.php',
+    'Wc_Rw_Order_Data_Export_Settings' => $baseDir . '/includes/class-wc-rw-order-data-export-settings.php',
+    'Wc_Rw_Order_Data_Export_Xml_Creator' => $baseDir . '/modules/xml-export/class-wc-rw-order-data-export-xml-creator.php',
+    'Wc_Rw_Order_Data_Export_Xml_Data' => $baseDir . '/modules/xml-export/class-wc-rw-order-data-export-xml-data.php',
+    'Wc_Rw_Order_Data_Export_Xml_Report' => $baseDir . '/modules/xml-export/class-wc-rw-order-data-export-xml-report.php',
 );

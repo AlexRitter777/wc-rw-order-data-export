@@ -1,0 +1,19 @@
+.wc-rw-order-data-export-clear-date-button{
+
+    background: none;
+    border: none;
+    cursor: pointer;
+    position: absolute;
+    bottom: 5px;
+    left: 93%;
+    color: #777;
+}
+
+.wc-rw-data-export-invoice-date {
+    position: relative;
+}
+
+.wc-rw-order-data-export-meta-box-wrapper {
+    display: flex;
+    justify-content: space-between;
+}

@@ -6,7 +6,7 @@
         <meta name="viewport"
               content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
         <meta http-equiv="X-UA-Compatible" content="ie=edge">
-        <link rel="stylesheet" type="text/css" href="/wp-content/plugins/lr-entry-export/assets/css/invoice.css">
+        <link rel="stylesheet" type="text/css" href="/wp-content/plugins/wc-rw-order-data-export/assets/css/invoice.css">
 
     </head>
     <body>
@@ -16,18 +16,18 @@
                     <td class="col-1"></td>
                     <td class="col-2">
                         <h1 class="main-title">
-                            <span>Invoice</span>
+                            <span><?= __('Invoice', 'wc-rw-order-data-export'); ?></span>
                             <span class="text-gray"><?= $invoiceNumber; ?></span>
                         </h1>
-                        <p class="main-subtitle text-gray">tax document</p>
+                        <p class="main-subtitle text-gray"><?= __('tax document', 'wc-rw-order-data-export'); ?></p>
                     </td>
                 </tr>
             </table>
 
             <table class="customer-supplier" border="0">
                 <tr>
-                    <td class="col-1"><h2 class="upc text-gray fs13">Supplier</h2></td>
-                    <td class="col-2"><h2 class="upc text-gray fs13">Customer</h2></td>
+                    <td class="col-1"><h2 class="upc text-gray fs13"><?= __('Supplier', 'wc-rw-order-data-export'); ?></h2></td>
+                    <td class="col-2"><h2 class="upc text-gray fs13"><?= __('Customer', 'wc-rw-order-data-export'); ?></h2></td>
                 </tr>
             </table>
 
@@ -37,7 +37,7 @@
                         <h3 class="upc fs13"><?=$companyName; ?></h3>
                         <span><?=$companyStreet;?></span><br>
                         <span><?=$companyZIP . ' ' . $companyCity;?></span><br>
-                        <span><?=$companyCountryFull['eng'];?></span>
+                        <span><?=$companyCountryFull;?></span>
                     </td>
                     <td class="col-2">
                         <h3 class="upc fs13"><?=$clientBillingName;?></h3>
@@ -52,8 +52,8 @@
             <table class="supplier-registration-data" border="0">
                 <tr>
                     <td class="col-1">
-                        <span class="text-gray">Reg.No</span><br>
-                        <span class="upc text-gray">vat id</span>
+                        <span class="text-gray"><?= __('Reg.No', 'wc-rw-order-data-export'); ?></span><br>
+                        <span class="upc text-gray"><?= __('vat id', 'wc-rw-order-data-export'); ?></span>
                     </td>
                     <td class="col-2">
                          <span><?=$ICO;?></span><br>
@@ -66,10 +66,10 @@
             <table class="order-data" border="0">
                 <tr>
                     <td class="col-1">
-                        <span class="text-gray">Order number</span><br>
-                        <span class="text-gray">Reference</span><br>
-                        <span class="text-gray">Payment method</span><br>
-                        <span class="text-gray">Invoice currency</span>
+                        <span class="text-gray"><?= __('Order number', 'wc-rw-order-data-export');?></span><br>
+                        <span class="text-gray"><?= __('Reference', 'wc-rw-order-data-export');?></span><br>
+                        <span class="text-gray"><?= __('Payment method', 'wc-rw-order-data-export');?></span><br>
+                        <span class="text-gray"><?= __('Invoice currency', 'wc-rw-order-data-export');?></span>
                     </td>
                     <td class="col-2">
                         <span><?= $orderNumber;?></span><br>
@@ -79,9 +79,9 @@
                     </td>
                     <td class="col-3"></td>
                     <td class="col-4">
-                        <span class="text-gray">Issued on</span><br>
-                        <span class="text-gray">Due on</span><br>
-                        <span class="text-gray">Taxable fulfillment due</span><br>
+                        <span class="text-gray"><?= __('Issued on', 'wc-rw-order-data-export'); ?></span><br>
+                        <span class="text-gray"><?= __('Due on', 'wc-rw-order-data-export'); ?></span><br>
+                        <span class="text-gray"><?= __('Taxable fulfillment due', 'wc-rw-order-data-export'); ?></span><br>
                         <span>&#160</span>
                     </td>
                     <td class="col-5">
@@ -98,17 +98,17 @@
                     <th class="col-1"></th>
                     <th class="col-2"></th>
                     <th class="col-3"></th>
-                    <th class="col-4 upc text-gray">vat</th>
-                    <th class="col-5 upc text-gray">unit price</th>
-                    <th class="col-6 upc text-gray">total w/o vat</th>
-                    <th class="col-7 upc text-gray">total incl. vat</th>
+                    <th class="col-4 upc text-gray"><?= __('vat', 'wc-rw-order-data-export');?></th>
+                    <th class="col-5 upc text-gray"><?= __('unit price', 'wc-rw-order-data-export');?></th>
+                    <th class="col-6 upc text-gray"><?= __('total w/o vat', 'wc-rw-order-data-export');?></th>
+                    <th class="col-7 upc text-gray"><?= __('total incl. vat', 'wc-rw-order-data-export');?></th>
                 </tr>
             </table>
             <?php foreach ($itemsData as $key => $item): ?>
             <table class="item" border="0">
                 <tr>
                     <td class="col-1"><?=$item['quantity'] ?></td>
-                    <td class="col-2">psc</td>
+                    <td class="col-2"><?= __('psc', 'wc-rw-order-data-export');?></td>
                     <td class="col-3"><?=$item['name'];?></td>
                     <td class="col-4"><?=$item['tax_rate'];?> %</td>
                     <td class="col-5"><?=$item['unitPriceExcVat'];?></td>
@@ -148,29 +148,56 @@
 
             <div class="line" border="0"><span></span></div>
 
-            <table class="vat-total" border="0">
-                <tr>
-                    <td class="col-1"></td>
-                    <td class="col-2 text-gray upc">vat rate</td>
-                    <td class="col-3 text-gray upc">vat base</td>
-                    <td class="col-4 text-gray upc">vat</td>
-                    <td class="col-5 text-gray upc">vat in czk</td>
-                </tr>
-            </table>
+            <?php if(isset($vatRatesValues)) :?>
 
-            <?php foreach ($vatRatesValues as $rate => $value): ?>
-            <?php if($value != 0):?>
-            <table class="vat-total" border="0">
-                <tr>
-                    <td class="col-1"></td>
-                    <td class="col-2"><?=$rate;?> %</td>
-                    <td class="col-3"><?=$vatBases[$rate];?></td>
-                    <td class="col-4"><?=$value;?></td>
-                    <td class="col-5"><?=$vatRatesValuesBaseCurr[$rate];?></td>
-                </tr>
-            </table>
-            <?php endif;?>
-            <?php endforeach;?>
+                <table class="vat-total" border="0">
+                    <tr>
+                        <td class="col-1"></td>
+                        <td class="col-2 text-gray upc"><?= __('vat rate', 'wc-rw-order-data-export');?></td>
+                        <td class="col-3 text-gray upc"><?= __('vat base', 'wc-rw-order-data-export');?></td>
+                        <td class="col-4 text-gray upc"><?= __('vat', 'wc-rw-order-data-export');?></td>
+                        <td class="col-5 text-gray upc"><?= __('vat in czk', 'wc-rw-order-data-export');?></td>
+                    </tr>
+                </table>
+
+
+
+                <?php foreach ($vatRatesValues as $rate => $value): ?>
+                    <?php if($value != 0):?>
+                    <table class="vat-total" border="0">
+                        <tr>
+                            <td class="col-1"></td>
+                            <td class="col-2"><?=$rate;?> %</td>
+                            <td class="col-3"><?=$vatBases[$rate];?></td>
+                            <td class="col-4"><?=$value;?></td>
+                            <td class="col-5"><?=$vatRatesValuesBaseCurr[$rate];?></td>
+                        </tr>
+                    </table>
+                    <?php endif;?>
+                <?php endforeach;?>
+
+            <?php else: ?>
+
+                <table class="vat-total" border="0">
+                    <tr>
+                        <td class="col-1"></td>
+                        <td class="col-2 text-gray upc"><?= __('vat rate', 'wc-rw-order-data-export');?></td>
+                        <td class="col-3 text-gray upc"><?= __('vat base', 'wc-rw-order-data-export');?></td>
+                        <td class="col-4 text-gray upc"><?= __('vat', 'wc-rw-order-data-export');?></td>
+                    </tr>
+                </table>
+
+
+                <table class="vat-total" border="0">
+                    <tr>
+                        <td class="col-1"></td>
+                        <td class="col-2">0 %</td>
+                        <td class="col-3"><?=$totalPriceInclVat;?></td>
+                        <td class="col-4">0</td>
+                    </tr>
+                </table>
+
+            <?php endif; ?>
             <div class="invoice-total-wrapper">
                 <div class="invoice-total-right">
                     <table class="invoice-total" border="0">

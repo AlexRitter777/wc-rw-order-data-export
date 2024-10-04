@@ -126,7 +126,7 @@ table{
 
 .order-data {
     width: 100%;
-    margin-bottom: 25px;
+    margin-bottom: 5px;
 }
 
 .order-data td {
@@ -150,6 +150,26 @@ table{
 .order-data .col-5 {
     width: 23%;
     text-align: right;
+}
+
+.bank-address {
+    width: 100%;
+    margin-bottom: 25px;
+}
+
+.bank-address .col-1 {
+    width: 23%;
+    vertical-align: top;
+}
+
+.bank-address .col-2 {
+    width: 23%;
+    text-align: right;
+
+}
+
+.bank-address .col-3 {
+    width: 54%;
 }
 
 
@@ -289,7 +309,7 @@ table{
 
 
 
-.vat-total{
+.vat-total, .vat-info{
     width: 100%;
 }
 
@@ -316,6 +336,14 @@ table{
 
 .vat-total .col-5{
     width: 17%;
+}
+
+.vat-info .col-1 {
+    width: 40%;
+}
+
+.vat-info .col-2 {
+    font-size: 0.8em;
 }
 
 .invoice-total-wrapper {

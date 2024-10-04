@@ -7,7 +7,6 @@ $baseDir = dirname($vendorDir);
 
 return array(
     'setasign\\Fpdi\\' => array($vendorDir . '/setasign/fpdi/src'),
-    'includes\\' => array($baseDir . '/includes'),
     'Psr\\Log\\' => array($vendorDir . '/psr/log/Psr/Log'),
     'Psr\\Http\\Message\\' => array($vendorDir . '/psr/http-message/src'),
     'Mpdf\\' => array($vendorDir . '/mpdf/mpdf/src'),

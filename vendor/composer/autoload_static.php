@@ -16,10 +16,6 @@ class ComposerStaticInit0b1f50d60cff29c784da4cb131ad965d
         array (
             'setasign\\Fpdi\\' => 14,
         ),
-        'i' => 
-        array (
-            'includes\\' => 9,
-        ),
         'P' => 
         array (
             'Psr\\Log\\' => 8,
@@ -47,10 +43,6 @@ class ComposerStaticInit0b1f50d60cff29c784da4cb131ad965d
         'setasign\\Fpdi\\' => 
         array (
             0 => __DIR__ . '/..' . '/setasign/fpdi/src',
-        ),
-        'includes\\' => 
-        array (
-            0 => __DIR__ . '/../..' . '/includes',
         ),
         'Psr\\Log\\' => 
         array (
@@ -80,6 +72,19 @@ class ComposerStaticInit0b1f50d60cff29c784da4cb131ad965d
 
     public static $classMap = array (
         'Composer\\InstalledVersions' => __DIR__ . '/..' . '/composer/InstalledVersions.php',
+        'Wc_Rw_Order_Data_Export_Csv_Creator' => __DIR__ . '/../..' . '/modules/csv-export/wc-rw-order-data-export-csv-creator.php',
+        'Wc_Rw_Order_Data_Export_Csv_Data' => __DIR__ . '/../..' . '/modules/csv-export/wc-rw-order-data-export-csv-data.php',
+        'Wc_Rw_Order_Data_Export_Csv_Report' => __DIR__ . '/../..' . '/modules/csv-export/wc-rw-order-data-export-csv-report.php',
+        'Wc_Rw_Order_Data_Export_Data_Getter' => __DIR__ . '/../..' . '/includes/class-wc-rw-order-data-export-data-getter.php',
+        'Wc_Rw_Order_Data_Export_Debug' => __DIR__ . '/../..' . '/includes/class-wc-rw-order-data-export-debug.php',
+        'Wc_Rw_Order_Data_Export_Dpf_Data_Taxes_Off' => __DIR__ . '/../..' . '/modules/pdf-invoices/class-wc-rw-order-data-export-pdf-data-taxes-off.php',
+        'Wc_Rw_Order_Data_Export_Dpf_Data_Taxes_On' => __DIR__ . '/../..' . '/modules/pdf-invoices/class-wc-rw-order-data-export-pdf-data-taxes-on.php',
+        'Wc_Rw_Order_Data_Export_Init' => __DIR__ . '/../..' . '/includes/class-wc-rw-order-data-export-init.php',
+        'Wc_Rw_Order_Data_Export_Pdf_Invoices' => __DIR__ . '/../..' . '/modules/pdf-invoices/class-wc-rw-order-data-export-pdf-invoices.php',
+        'Wc_Rw_Order_Data_Export_Settings' => __DIR__ . '/../..' . '/includes/class-wc-rw-order-data-export-settings.php',
+        'Wc_Rw_Order_Data_Export_Xml_Creator' => __DIR__ . '/../..' . '/modules/xml-export/class-wc-rw-order-data-export-xml-creator.php',
+        'Wc_Rw_Order_Data_Export_Xml_Data' => __DIR__ . '/../..' . '/modules/xml-export/class-wc-rw-order-data-export-xml-data.php',
+        'Wc_Rw_Order_Data_Export_Xml_Report' => __DIR__ . '/../..' . '/modules/xml-export/class-wc-rw-order-data-export-xml-report.php',
     );
 
     public static function getInitializer(ClassLoader $loader)

@@ -1,12 +1,14 @@
 {
 
-    "name": "hp/lr-entry-export",
+    "name": "hp/wc-rw-order-data-export",
 
     "autoload": {
-        "psr-4": {
-
-            "includes\\": "includes"
-        }
+        "classmap": [
+            "includes/",
+            "modules/pdf-invoices/",
+            "modules/xml-export/",
+            "modules/csv-export/"
+        ]
     },
 
     "require": {

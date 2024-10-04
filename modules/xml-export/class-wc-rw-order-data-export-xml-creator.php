@@ -1,12 +1,11 @@
 <?php
 
-namespace includes;
-
 use FluidXml\FluidXml;
 
-class EntryXmlCreator {
 
-    public $data;
+class Wc_Rw_Order_Data_Export_Xml_Creator {
+
+    private $data;
 
     public function __construct($data){
 
@@ -183,6 +182,7 @@ class EntryXmlCreator {
             foreach ($this->data[$orderId]['vatRatesValuesBaseCurr'] as $rate => $value) {
 
                 if($value != 0) {
+
                     $ucetniRadky->addChild([
 
                         'Radek' => [
@@ -226,15 +226,6 @@ class EntryXmlCreator {
 
         return $book->xml();
 
-
-
-
     }
-
-
-
-
-
-
 
 }

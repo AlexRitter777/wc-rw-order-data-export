@@ -1,46 +1,16 @@
 <?php
 
+
 return [
-
-    'cod' => [
-        'english' => 'Cash on delivery',
-        'polish' => 'Gotówką przy odbiorze',
-        'romanian' => '',
-        'bulgarian' => '',
-        'lithuanian' => '',
-    ],
-
-    'bacs' => [
-        'english' => 'Bank transfer',
-        'polish' => 'Bank transfer',
-        'romanian' => '',
-        'bulgarian' => '',
-        'lithuanian' => '',
-    ],
-
-    'gpwebpaybinder' => [
-        'english' => 'Card',
-        'polish' => 'Karta płatnicza',
-        'romanian' => '',
-        'bulgarian' => '',
-        'lithuanian' => '',
-    ],
-
-    'gpwebpaybindergooglepay' => [
-        'english' => 'Google Pay',
-        'polish' => 'Google Pay',
-        'romanian' => '',
-        'bulgarian' => '',
-        'lithuanian' => '',
-    ],
-
-    'gpwebpaybinderapplepay' => [
-        'english' => 'Apple Pay',
-        'polish' => 'Apple Pay',
-        'romanian' => '',
-        'bulgarian' => '',
-        'lithuanian' => '',
-    ]
-    // PayU, GP web pay, Stripe , přidat v produkcii!!!
+    'cod' => __('Cash on delivery', 'wc-rw-order-data-export'),
+    'bacs' => __('Bank transfer', 'wc-rw-order-data-export'),
+    'gpwebpaybinder' => __('Card', 'wc-rw-order-data-export'),
+    'gpwebpaybindergooglepay' => __('Google Pay', 'wc-rw-order-data-export'),
+    'gpwebpaybinderapplepay' => __('Apple Pay', 'wc-rw-order-data-export'),
+    'payusecureform' => __('Card', 'wc-rw-order-data-export')
 
 ];
+
+
+
+
