@@ -1,10 +1,9 @@
 <?php
 
-namespace includes;
+class Wc_Rw_Order_Data_Export_Csv_Creator {
 
-class LionCsvCreator {
 
-    protected $csvData;
+    private $csvData;
 
 
     public function createCsv(array $orderData) : array
