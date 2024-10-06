@@ -968,7 +968,7 @@ class Wc_Rw_Order_Data_Export_Data_Getter
         if($invoice_type === 'invoice'){
             $data['invoiceDate'] = $this->getOrSetInvoiceDate($order);
             $data['maturityDate'] = $this->getMaturityDate($order, $data['invoiceDate']);
-        } elseif ($invoice_type === 'credit-note'){
+        } elseif ($invoice_type === 'creditnote'){
             $data['creditNoteDate'] = $this->getOrSetCreditNoteDate($order);
             $data['maturityDate'] = $this->getCreditNoteMaturityDate($data['creditNoteDate']);
         } elseif ($invoice_type === 'proforma') {
@@ -1013,7 +1013,7 @@ class Wc_Rw_Order_Data_Export_Data_Getter
         }
 
         // Credit note number
-        if (!$data['creditNoteNumber'] = $this->getCreditNoteNumber($orderId, $this->prefixes)) {
+        if (!$data['creditnoteNumber'] = $this->getCreditNoteNumber($orderId, $this->prefixes)) {
             $this->getError('prefixes', $error);
             return false;
         }

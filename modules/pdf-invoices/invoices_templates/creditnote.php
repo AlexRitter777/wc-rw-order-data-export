@@ -17,7 +17,7 @@
             <td class="col-2">
                 <h1 class="main-title">
                     <span><?= __('Credit Note', 'wc-rw-order-data-export'); ?></span>
-                    <span class="text-gray"><?= $creditNoteNumber; ?></span>
+                    <span class="text-gray"><?= $creditnoteNumber; ?></span>
                 </h1>
                 <p class="main-subtitle text-gray"><?= __('to invoice', 'wc-rw-order-data-export') . ' ' . $invoiceNumber; ?></p>
             </td>

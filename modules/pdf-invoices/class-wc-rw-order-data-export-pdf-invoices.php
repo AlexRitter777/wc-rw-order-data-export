@@ -82,7 +82,7 @@ class Wc_Rw_Order_Data_Export_Pdf_Invoices
         add_filter( 'woocommerce_email_attachments', [$this, 'wc_rw_attach_pdf_to_order_created_email'], 10, 3 );
 
         // Send cancellation email when order status changes from "completed" to "cancelled"
-        add_action( 'woocommerce_order_status_changed', [$this, 'wc_rw_send_cancellation_email_after_cancel_completed_order'], 9, 4 );
+        //add_action( 'woocommerce_order_status_changed', [$this, 'wc_rw_send_cancellation_email_after_cancel_completed_order'], 9, 4 );
 
         // Delete temporary PDF file after email is successfully sent
         add_action('wp_mail_succeeded', [$this, 'wc_rw_delete_pdf_after_mail_sent'], 10, 1);
@@ -312,7 +312,7 @@ class Wc_Rw_Order_Data_Export_Pdf_Invoices
 
             $order_id = $_GET['order_id'];
 
-            $this->wc_rw_generate_invoice('credit-note', $order_id, false);
+            $this->wc_rw_generate_invoice('creditnote', $order_id, false);
 
         } else {
             unset($_SESSION['error']);
@@ -372,6 +372,7 @@ class Wc_Rw_Order_Data_Export_Pdf_Invoices
         ob_start();
         $invoice_template = WP_PLUGIN_DIR ."/wc-rw-order-data-export/modules/pdf-invoices/invoices_templates/$invoice_type.php";
         if(is_file($invoice_template)) {
+
             require_once $invoice_template;
             $content = ob_get_clean();
             $mPdf = new Mpdf();
@@ -379,14 +380,16 @@ class Wc_Rw_Order_Data_Export_Pdf_Invoices
             $mPdf->WriteHTML($stylesheet, 1);
             $mPdf->WriteHTML($content, 2);
 
+            $document_number = ${$invoice_type . 'Number'};
+
             if($save_invoice) {
                 $upload_dir = wp_upload_dir();
-                $pdf_path = $upload_dir['basedir'] . '/wc_rw_invoices/' . $invoiceNumber . '.pdf';
+                $pdf_path = $upload_dir['basedir'] . '/wc_rw_invoices/' . $document_number  . '.pdf';
                 $mPdf->Output( $pdf_path, Destination::FILE );
                 return $pdf_path;
             }
 
-            $mPdf->Output("{$invoiceNumber}.pdf", 'D');
+            $mPdf->Output("{$document_number}.pdf", 'D');
         } else {
             ob_end_clean();
             error_log("Invoice template is not found: $invoice_template");
@@ -396,6 +399,7 @@ class Wc_Rw_Order_Data_Export_Pdf_Invoices
         }
 
     }
+
 
 
     /**
@@ -443,9 +447,9 @@ class Wc_Rw_Order_Data_Export_Pdf_Invoices
 
         $credit_note_date = $order->get_meta( 'wc_wr_order_data_export_credit_note_date' );
 
-        if ( ('cancelled_order' === $email_id || 'customer_refunded_order' === $email_id) && is_a( $order, 'WC_Order' ) && $credit_note_date ) {
+        if ( (/*'cancelled_order' === $email_id ||*/ 'customer_refunded_order' === $email_id) && is_a( $order, 'WC_Order' ) && $credit_note_date ) {
             // make and save PDF
-            $pdf_path = $this->wc_rw_generate_invoice('credit-note', $order->get_id(), true);
+            $pdf_path = $this->wc_rw_generate_invoice('creditnote', $order->get_id(), true);
 
             // attach file
             if ( file_exists( $pdf_path ) ) {
@@ -549,7 +553,7 @@ class Wc_Rw_Order_Data_Export_Pdf_Invoices
      * @param string $new_status
      * @param WC_Order $order
      */
-    public function wc_rw_send_cancellation_email_after_cancel_completed_order(int $order_id, string $old_status, string $new_status, WC_Order $order){
+    /*public function wc_rw_send_cancellation_email_after_cancel_completed_order(int $order_id, string $old_status, string $new_status, WC_Order $order){
 
         if ( 'cancelled' === $new_status && 'completed' === $old_status ) {
 
@@ -561,7 +565,7 @@ class Wc_Rw_Order_Data_Export_Pdf_Invoices
             }
         }
 
-    }
+    }*/
 
 
     /**
