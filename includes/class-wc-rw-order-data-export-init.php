@@ -126,7 +126,7 @@ class Wc_Rw_Order_Data_Export_Init{
             'wc-rw-order-data-export-pdf-invoices-script',
             $this->plugin_url . '/modules/pdf-invoices/assets/js/invoice.js',
             array('jquery'),
-            Wc_Rw_Order_Data_Export::VERSION,
+            Wc_Rw_Order_Data_Export::VERSION ,
             true
         );
 
