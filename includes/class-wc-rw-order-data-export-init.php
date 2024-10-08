@@ -126,7 +126,7 @@ class Wc_Rw_Order_Data_Export_Init{
             'wc-rw-order-data-export-pdf-invoices-script',
             $this->plugin_url . '/modules/pdf-invoices/assets/js/invoice.js',
             array('jquery'),
-            '2.0.0',
+            Wc_Rw_Order_Data_Export::VERSION,
             true
         );
 
@@ -134,7 +134,7 @@ class Wc_Rw_Order_Data_Export_Init{
             'wc-rw-order-data-export-pdf-invoices-style',
             $this->plugin_url . '/modules/pdf-invoices/assets/css/style.css',
             array(),
-            '2.0.0'
+             Wc_Rw_Order_Data_Export::VERSION
         );
 
     }
@@ -161,7 +161,7 @@ class Wc_Rw_Order_Data_Export_Init{
                 'wc-rw-order-data-export-xml-report-script',
                 $this->plugin_url . '/modules/xml-export/assets/js/xml-export.js',
                 array('jquery'),
-                '2.0.0',
+                Wc_Rw_Order_Data_Export::VERSION,
                 true
             );
         }
@@ -191,7 +191,7 @@ class Wc_Rw_Order_Data_Export_Init{
                 'wc-rw-order-data-export-csv-report-script',
                 $this->plugin_url . '/modules/csv-export/assets/js/csv-export.js',
                 array('jquery'),
-                '2.0.0',
+                Wc_Rw_Order_Data_Export::VERSION,
                 true
             );
         }
