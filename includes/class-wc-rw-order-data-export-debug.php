@@ -13,7 +13,7 @@ class Wc_Rw_Order_Data_Export_Debug {
      *
      * @param mixed $arr The data to print.
      */
-    public static function wc_rw_order_data_export_debug(array $arr) {
+    public static function wc_rw_order_data_export_array_debug(array $arr) {
         echo '<pre>' . print_r($arr, true) . '</pre>';
     }
 
