@@ -72,9 +72,9 @@ class ComposerStaticInit0b1f50d60cff29c784da4cb131ad965d
 
     public static $classMap = array (
         'Composer\\InstalledVersions' => __DIR__ . '/..' . '/composer/InstalledVersions.php',
-        'Wc_Rw_Order_Data_Export_Csv_Creator' => __DIR__ . '/../..' . '/modules/csv-export/wc-rw-order-data-export-csv-creator.php',
-        'Wc_Rw_Order_Data_Export_Csv_Data' => __DIR__ . '/../..' . '/modules/csv-export/wc-rw-order-data-export-csv-data.php',
-        'Wc_Rw_Order_Data_Export_Csv_Report' => __DIR__ . '/../..' . '/modules/csv-export/wc-rw-order-data-export-csv-report.php',
+        'Wc_Rw_Order_Data_Export_Csv_Creator' => __DIR__ . '/../..' . '/modules/csv-export/class-wc-rw-order-data-export-csv-creator.php',
+        'Wc_Rw_Order_Data_Export_Csv_Data' => __DIR__ . '/../..' . '/modules/csv-export/class-wc-rw-order-data-export-csv-data.php',
+        'Wc_Rw_Order_Data_Export_Csv_Report' => __DIR__ . '/../..' . '/modules/csv-export/class-wc-rw-order-data-export-csv-report.php',
         'Wc_Rw_Order_Data_Export_Data_Getter' => __DIR__ . '/../..' . '/includes/class-wc-rw-order-data-export-data-getter.php',
         'Wc_Rw_Order_Data_Export_Debug' => __DIR__ . '/../..' . '/includes/class-wc-rw-order-data-export-debug.php',
         'Wc_Rw_Order_Data_Export_Dpf_Data_Taxes_Off' => __DIR__ . '/../..' . '/modules/pdf-invoices/class-wc-rw-order-data-export-pdf-data-taxes-off.php',

@@ -49,7 +49,7 @@ class Wc_Rw_Order_Data_Export
         add_action('admin_enqueue_scripts', [$this, 'wc_rw_load_common_scripts_and_styles']);
 
         //Start session
-        add_action( 'init', [$this,'start_session']);
+        add_action( 'init', [$this,'start_session'], 1);
     }
 
 

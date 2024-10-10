@@ -7,9 +7,9 @@ $baseDir = dirname($vendorDir);
 
 return array(
     'Composer\\InstalledVersions' => $vendorDir . '/composer/InstalledVersions.php',
-    'Wc_Rw_Order_Data_Export_Csv_Creator' => $baseDir . '/modules/csv-export/wc-rw-order-data-export-csv-creator.php',
-    'Wc_Rw_Order_Data_Export_Csv_Data' => $baseDir . '/modules/csv-export/wc-rw-order-data-export-csv-data.php',
-    'Wc_Rw_Order_Data_Export_Csv_Report' => $baseDir . '/modules/csv-export/wc-rw-order-data-export-csv-report.php',
+    'Wc_Rw_Order_Data_Export_Csv_Creator' => $baseDir . '/modules/csv-export/class-wc-rw-order-data-export-csv-creator.php',
+    'Wc_Rw_Order_Data_Export_Csv_Data' => $baseDir . '/modules/csv-export/class-wc-rw-order-data-export-csv-data.php',
+    'Wc_Rw_Order_Data_Export_Csv_Report' => $baseDir . '/modules/csv-export/class-wc-rw-order-data-export-csv-report.php',
     'Wc_Rw_Order_Data_Export_Data_Getter' => $baseDir . '/includes/class-wc-rw-order-data-export-data-getter.php',
     'Wc_Rw_Order_Data_Export_Debug' => $baseDir . '/includes/class-wc-rw-order-data-export-debug.php',
     'Wc_Rw_Order_Data_Export_Dpf_Data_Taxes_Off' => $baseDir . '/modules/pdf-invoices/class-wc-rw-order-data-export-pdf-data-taxes-off.php',
