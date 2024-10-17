@@ -9,6 +9,10 @@
 class Wc_Rw_Order_Data_Export_Data_Getter
 {
 
+    protected string $report_id;
+
+    protected int $internal_error_code;
+
     protected array $countries;
     protected array $company_data;
     protected array $exchange_rates;
@@ -19,6 +23,11 @@ class Wc_Rw_Order_Data_Export_Data_Getter
     protected array $orderExchangeRates;
     protected array $errors;
 
+
+    public function __construct($report_id)
+    {
+        $this->report_id = $report_id;
+    }
 
     /**
      * Loads properties from config files.
@@ -51,10 +60,22 @@ class Wc_Rw_Order_Data_Export_Data_Getter
     protected function executePropertyMethod(string $property, string $error) : bool
     {
         if(!$this->getProperty($property)) {
-            $_SESSION['error'] = !empty($this->errors[$property]) ? $this->errors[$property] : $error;
+
+            $propertyError = !empty($this->errors[$property]) ? $this->errors[$property] : $error;
+            $this->logAndSetError($propertyError);
             return false;
         }
         return true;
+    }
+
+    /**
+     * @param string $error
+     */
+    protected function logAndSetError(string $error){
+        $report_id = $this->report_id;
+        $error_id = 'wc_rw_error_' . $report_id;
+        Wc_Rw_Order_Data_Export_Debug::wc_rw_order_data_export_error($error);
+        set_transient( $error_id, $error, HOUR_IN_SECONDS );
     }
 
 
@@ -106,31 +127,35 @@ class Wc_Rw_Order_Data_Export_Data_Getter
         return true;
     }
 
+
     /**
-     * Save error message to the session.
-     *
      * @param string $errorName
      * @param string $defaultError
      */
-    protected function getError(string $errorName, string $defaultError) : void
-    {
-        $_SESSION['error'] = !empty($this->errors[$errorName]) ? ($this->errors[$errorName]) : $defaultError;
-
+    protected function setErrorByName(string $errorName, string $defaultError){
+        $report_id = $this->report_id;
+        $error_id = 'wc_rw_error_' . $report_id;
+        $error = !empty($this->errors[$errorName]) ? ($this->errors[$errorName]) : $defaultError;
+        set_transient( $error_id, $error, HOUR_IN_SECONDS );
     }
 
+
     /**
-     * Save error message and order ID to the session.
+     * Save error message and order ID to the DB.
      *
      * @param string $errorName
      * @param string $defaultError
      * @param string $orderID
      */
-    public function getErrorAndOrderID(string $errorName, string $defaultError, string $orderID) : void
+    public function setErrorAndOrderIDbyName(string $errorName, string $defaultError, string $orderID) : void
     {
+        $report_id = $this->report_id;
+        $error_id = 'wc_rw_error_' . $report_id;
         $error = !empty($this->errors[$errorName]) ? $this->errors[$errorName] : $defaultError;
         $error.= ' Номер заказа - ' . $orderID;
-        $_SESSION['wc_rw_order_data_export']['error'] = $error;
+        set_transient( $error_id, $error, HOUR_IN_SECONDS );
     }
+
 
     /**
      * Get array property from class object
@@ -470,7 +495,10 @@ class Wc_Rw_Order_Data_Export_Data_Getter
             //get every item from current order
             foreach ($order->get_items() as $item_key => $item ){
                 //Check if product have a VAT
-                if(!$item->get_total_tax()) {$_SESSION['int_err_code'] = 2; return false;}
+                if(!$item->get_total_tax()) {
+                    $this->internal_error_code = 2;
+                    return false;
+                }
                 //get product vat rate
                 $product = wc_get_product( $item->get_product_id() );
                 $tax_rates = WC_Tax::get_rates( $product->get_tax_class() );
@@ -488,7 +516,7 @@ class Wc_Rw_Order_Data_Export_Data_Getter
              */
             if ($value == $standardVatRate) {
                 if(!$shippingAndFeeVatRatesValues = $this->getShippingAndFeesVatValues($order)) {
-                    $_SESSION['int_err_code'] = 3;
+                    $this->internal_error_code = 3;
                     return false;
                 }
                 $vatRatesValues[$value] += $shippingAndFeeVatRatesValues;
@@ -499,7 +527,7 @@ class Wc_Rw_Order_Data_Export_Data_Getter
          * Checks if all VAT rates for items, shipping, and fees are present in the vat_rates configuration file.
          */
         if((count($order->get_items()) != $itemsCounter) || ($this->getShippingAndFeesVatValues($order) && !$shippingAndFeeCounter)) {
-            $_SESSION['int_err_code'] = 1;
+            $this->internal_error_code = 1;
             return false;
         }
 
@@ -570,7 +598,10 @@ class Wc_Rw_Order_Data_Export_Data_Getter
             $vatBases[$value] = 0;
 
             foreach ($order->get_items() as $item_key => $item ){
-                if(!$item->get_total_tax()) {$_SESSION['int_err_code'] = 2; return false;}
+                if(!$item->get_total_tax()) {
+                    $this->internal_error_code = 2;
+                    return false;
+                }
                 $product = wc_get_product( $item->get_product_id() );
                 $tax_rates = WC_Tax::get_rates( $product->get_tax_class() );
                 $tax_rate = reset($tax_rates);
@@ -591,7 +622,7 @@ class Wc_Rw_Order_Data_Export_Data_Getter
             if ($value == $standardVatRate) {
 
                 if(!$shippingAndFeesExlVat = $this->getShippingAndFeesExlVat($order)){
-                    $_SESSION['int_err_code'] = 3;
+                    $this->internal_error_code = 3;
                     return false;
                 }
                 $vatBases[$value] += round($shippingAndFeesExlVat,2);
@@ -603,7 +634,7 @@ class Wc_Rw_Order_Data_Export_Data_Getter
         // Checks if all VAT rates for items, shipping, and fees are present in the vat_rates configuration file.
 
         if((count($order->get_items()) != $itemsCounter) || ($this->getShippingAndFeesExlVat($order) && !$shippingAndFeeCounter)) {
-            $_SESSION['int_err_code'] = 1;
+            $this->internal_error_code = 1;
             return false;
         }
 
@@ -993,7 +1024,7 @@ class Wc_Rw_Order_Data_Export_Data_Getter
 
         // Order exchange rate
         if (!$this->orderExchangeRates[$orderId] = $this->getOrderRate($order, $this->exchange_rates)) {
-            $this->getError('exchange_rates', $error);
+            $this->setErrorByName('exchange_rates', $error);
             return false;
         }
 
@@ -1008,19 +1039,19 @@ class Wc_Rw_Order_Data_Export_Data_Getter
 
         // Invoice number
         if (!$data['invoiceNumber'] = $this->getInvoiceNumber($orderId, $this->prefixes)) {
-            $this->getError('prefixes', $error);
+            $this->setErrorByName('prefixes', $error);
             return false;
         }
 
         // Credit note number
         if (!$data['creditnoteNumber'] = $this->getCreditNoteNumber($orderId, $this->prefixes)) {
-            $this->getError('prefixes', $error);
+            $this->setErrorByName('prefixes', $error);
             return false;
         }
 
         // Proforma number
         if (!$data['proformaNumber'] = $this->getProformaNumber($orderId, $this->prefixes)) {
-            $this->getError('prefixes', $error);
+            $this->setErrorByName('prefixes', $error);
             return false;
         }
 
@@ -1032,7 +1063,7 @@ class Wc_Rw_Order_Data_Export_Data_Getter
 
         // Payment method
         if (!$data['paymentMethod'] = $this->getOrderPaymentMethod($order, $this->payment_methods)) {
-            $this->getError('payment_methods', $error);
+            $this->setErrorByName('payment_methods', $error);
             return false;
         }
 
@@ -1049,7 +1080,7 @@ class Wc_Rw_Order_Data_Export_Data_Getter
 
         //Client Billing Country
         if (!$data['clientBillingCountryFull'] = $this->getOrderClientCountry($order)) {
-            $this->getError('countries', $error);
+            $this->setErrorByName('countries', $error);
             return false;
         }
 

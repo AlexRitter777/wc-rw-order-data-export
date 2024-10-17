@@ -8,12 +8,12 @@ class Wc_Rw_Order_Data_Export_Xml_Data extends Wc_Rw_Order_Data_Export_Data_Gett
      * Extracts all necessary data from WoCommerce and calculate all necessary additional data for xml export creating
      * Save all data to array
      *
-     * @param $orders
+     * @param array $orders
      * @return array|false
-     * @throws \Exception
+     * @throws Exception
      */
-    public function getXMLData($orders){
-
+    public function getXMLData(array $orders)
+    {
         $count = 0; //invoices counter
         $ordersData = [];
         $total = 0;
@@ -30,7 +30,7 @@ class Wc_Rw_Order_Data_Export_Xml_Data extends Wc_Rw_Order_Data_Export_Data_Gett
 
         //Chek if using actual exchange rates
         if(!$this->checkRatesYear()) {
-            $this->getError('year', $error);
+            $this->setErrorByName('year', $error);
             return false; // run always after loading exchanges_rates!
         }
 
@@ -45,20 +45,20 @@ class Wc_Rw_Order_Data_Export_Xml_Data extends Wc_Rw_Order_Data_Export_Data_Gett
 
                 //Chek if VAT is turn on in WooCommerce
                 if (!$order->get_total_tax()){
-                    $this->getErrorAndOrderID('vat_total', $error, $orderId);
+                    $this->setErrorAndOrderIDbyName('vat_total', $error, $orderId);
                     return false;
                 }
 
                 //Order exchange rate
                 if (!$this->orderExchangeRates[$orderId] = $this->getOrderRate($order, $this->exchange_rates)){
-                    $this->getErrorAndOrderID('exchange_rates', $error, $orderId);
+                    $this->setErrorAndOrderIDbyName('exchange_rates', $error, $orderId);
                     return false;
                 }
 
                 //Order details
                 $data['orderId'] = $orderId;
                 if(!$data['invoiceDate'] = $this->getInvoiceDate($order)){
-                    $this->getErrorAndOrderID('invoice_date', $error, $orderId);
+                    $this->setErrorAndOrderIDbyName('invoice_date', $error, $orderId);
                     return false;
                 };
                 $data['maturityDate'] = $this->getMaturityDate($order, $data['invoiceDate']);
@@ -66,7 +66,7 @@ class Wc_Rw_Order_Data_Export_Xml_Data extends Wc_Rw_Order_Data_Export_Data_Gett
 
                 //Invoice number
                 if (!$data['invoiceNumber'] = $this->getInvoiceNumber($orderId, $this->prefixes)) {
-                    $this->getErrorAndOrderID('prefixes', $error, $orderId);
+                    $this->setErrorAndOrderIDbyName('prefixes', $error, $orderId);
                     return false;
                 }
 
@@ -88,20 +88,20 @@ class Wc_Rw_Order_Data_Export_Xml_Data extends Wc_Rw_Order_Data_Export_Data_Gett
 
                 //Order VAT codes
                 if (!$data['vatCodes'] = $this->getVatCodes($order, $this->vat_codes)){
-                    $this->getErrorAndOrderID('vat_codes', $error, $orderId);
+                    $this->setErrorAndOrderIDbyName('vat_codes', $error, $orderId);
                     return false;
                 };
 
                 //Items
                 if(!$this->checkItemsVat($order)) {
-                    $this->getErrorAndOrderID('vat_item', $error, $orderId);
+                    $this->setErrorAndOrderIDbyName('vat_item', $error, $orderId);
                     return false;
                 }
                 $data['itemsTotalValues'] = $this->getItemsTotalValues($order);
 
                 //Fees and Shipping
-                if (is_null($data['feesData'] = $this->getFees($order))) {$this->getErrorAndOrderID('fee_vat', $error, $orderId); return false;}
-                if (is_null($data['shippingData'] = $this->getShipping($order))) {$this->getErrorAndOrderID('shipping_vat', $error, $orderId); return false;}
+                if (is_null($data['feesData'] = $this->getFees($order))) {$this->setErrorAndOrderIDbyName('fee_vat', $error, $orderId); return false;}
+                if (is_null($data['shippingData'] = $this->getShipping($order))) {$this->setErrorAndOrderIDbyName('shipping_vat', $error, $orderId); return false;}
 
 
                 //Total values
@@ -114,7 +114,7 @@ class Wc_Rw_Order_Data_Export_Xml_Data extends Wc_Rw_Order_Data_Export_Data_Gett
                 $data['totalItemsPriceExlVatBaseCurr'] = round($data['itemsTotalValues']['totalExlVat'] * $data['exchangeRate'], 2);
 
                 if(!$data['totalSippingAndFeesBaseCurr'] = $this->getShippingAndFeesExlVatBaseCurr($order)){
-                    $this->getErrorAndOrderID('fee_or_shipping_vat', $error, $orderId);
+                    $this->setErrorAndOrderIDbyName('fee_or_shipping_vat', $error, $orderId);
                     return false;
                 };
 
@@ -122,12 +122,12 @@ class Wc_Rw_Order_Data_Export_Xml_Data extends Wc_Rw_Order_Data_Export_Data_Gett
 
                 if(!$data['vatRatesValuesBaseCurr'] = $this->getVatRatesValuesBaseCurr($order)){
 
-                    if ($_SESSION['int_err_code'] == 1) {
-                        $this->getErrorAndOrderID('vat_rates', $error, $orderId);
-                    } elseif ($_SESSION['int_err_code'] == 2) {
-                        $this->getErrorAndOrderID('vat_item', $error, $orderId);
-                    } elseif ($_SESSION['int_err_code'] == 3) {
-                        $this->getErrorAndOrderID('fee_or_shipping_vat', $error, $orderId);
+                    if ($this->internal_error_code == 1) {
+                        $this->setErrorAndOrderIDbyName('vat_rates', $error, $orderId);
+                    } elseif ($this->internal_error_code == 2) {
+                        $this->setErrorAndOrderIDbyName('vat_item', $error, $orderId);
+                    } elseif ($this->internal_error_code == 3) {
+                        $this->setErrorAndOrderIDbyName('fee_or_shipping_vat', $error, $orderId);
                     }
 
                     return false;
@@ -136,12 +136,12 @@ class Wc_Rw_Order_Data_Export_Xml_Data extends Wc_Rw_Order_Data_Export_Data_Gett
 
                 if(!$data['vatBasesBaseCur'] = $this->getVatBasesBaseCurr($order)){
 
-                    if ($_SESSION['int_err_code'] == 1) {
-                        $this->getErrorAndOrderID('vat_rates', $error, $orderId);
-                    } elseif ($_SESSION['int_err_code'] == 2) {
-                        $this->getErrorAndOrderID('vat_item', $error, $orderId);
-                    } elseif ($_SESSION['int_err_code'] == 3) {
-                        $this->getErrorAndOrderID('fee_or_shipping_vat', $error, $orderId);
+                    if ($this->internal_error_code == 1) {
+                        $this->setErrorAndOrderIDbyName('vat_rates', $error, $orderId);
+                    } elseif ($this->internal_error_code == 2) {
+                        $this->setErrorAndOrderIDbyName('vat_item', $error, $orderId);
+                    } elseif ($this->internal_error_code == 3) {
+                        $this->setErrorAndOrderIDbyName('fee_or_shipping_vat', $error, $orderId);
                     }
 
                     return false;
@@ -150,7 +150,7 @@ class Wc_Rw_Order_Data_Export_Xml_Data extends Wc_Rw_Order_Data_Export_Data_Gett
 
 
             } else {
-                $this->getErrorAndOrderID('order', $error, $orderId);
+                $this->setErrorAndOrderIDbyName('order', $error, $orderId);
                 return false;
             }
 

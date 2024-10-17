@@ -82,6 +82,7 @@ class ComposerStaticInit0b1f50d60cff29c784da4cb131ad965d
         'Wc_Rw_Order_Data_Export_Init' => __DIR__ . '/../..' . '/includes/class-wc-rw-order-data-export-init.php',
         'Wc_Rw_Order_Data_Export_Pdf_Invoices' => __DIR__ . '/../..' . '/modules/pdf-invoices/class-wc-rw-order-data-export-pdf-invoices.php',
         'Wc_Rw_Order_Data_Export_Settings' => __DIR__ . '/../..' . '/includes/class-wc-rw-order-data-export-settings.php',
+        'Wc_Rw_Order_Data_Export_Validator' => __DIR__ . '/../..' . '/includes/class-wc-rw-order-data-export-validator.php',
         'Wc_Rw_Order_Data_Export_Xml_Creator' => __DIR__ . '/../..' . '/modules/xml-export/class-wc-rw-order-data-export-xml-creator.php',
         'Wc_Rw_Order_Data_Export_Xml_Data' => __DIR__ . '/../..' . '/modules/xml-export/class-wc-rw-order-data-export-xml-data.php',
         'Wc_Rw_Order_Data_Export_Xml_Report' => __DIR__ . '/../..' . '/modules/xml-export/class-wc-rw-order-data-export-xml-report.php',

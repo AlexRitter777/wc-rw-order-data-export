@@ -9,19 +9,25 @@ class Wc_Rw_Order_Data_Export_Csv_Report {
         // Adding to admin order list bulk dropdown a custom action 'custom_downloads'
         add_filter( 'bulk_actions-edit-shop_order', [$this, 'wc_rw_downloads_bulk_actions_edit_product'], 20, 1 );
 
-        // Make the action from selected orders
+        // Handle  the action from selected orders
         add_filter( 'handle_bulk_actions-edit-shop_order', [$this, 'wc_rw_downloads_handle_bulk_action_edit_shop_order'], 10, 3 );
 
-        // The results notice from bulk action on orders
+        // Display results notice from bulk action on orders
         add_action( 'admin_notices', [$this, 'wc_rw_downloads_bulk_action_admin_notice_csv'], 11 );
 
+        // Handle CSV report generation
         add_action('admin_post_wc_rw_generate_csv_report', [$this, 'wc_rw_generate_csv_report']);
 
 
     }
 
-
-    public function wc_rw_downloads_bulk_actions_edit_product( $actions ){
+    /**
+     * Add custom action "Download CSV" to the bulk actions dropdown
+     *
+     * @param array $actions
+     * @return array
+     */
+    public function wc_rw_downloads_bulk_actions_edit_product(array $actions ) : array{
 
         $actions['csv_download'] = __( 'Download CSV', 'wc-rw-order-data-export' );
         return $actions;
@@ -29,35 +35,43 @@ class Wc_Rw_Order_Data_Export_Csv_Report {
     }
 
 
-    public function wc_rw_downloads_handle_bulk_action_edit_shop_order($redirect_to, $action, $post_ids){
+
+    /**
+     * Handle the custom bulk action for downloading XML
+     *
+     * @param string $redirect_to
+     * @param string $action
+     * @param array $post_ids
+     * @return string
+     * @throws Exception
+     */
+    public function wc_rw_downloads_handle_bulk_action_edit_shop_order(string $redirect_to, string $action, array $post_ids) : string
+    {
 
         if ( $action !== 'csv_download' )
-            return $redirect_to; // Exit
+            return $redirect_to; // Exit if action is not "csv_download"
 
         $processed_ids = [];
 
         foreach ( $post_ids as $post_id ) {
-
             $processed_ids[] = $post_id;
         }
 
-        $data = new Wc_Rw_Order_Data_Export_Csv_Data();
+        $report_id = uniqid('wc_rw_ode_');
+
+        $data = new Wc_Rw_Order_Data_Export_Csv_Data($report_id);
         $orders_data = $data->getCSVData($processed_ids);
 
-        $session_id = uniqid('wc_rw_ode_', true);
-
-        $redirect_to = add_query_arg(
-            'session_id', $session_id,
-            $redirect_to
-        );
-
-
-
         if(!$orders_data){
-            $_SESSION[$session_id]['success'] = false;
-            $_SESSION['wc_rw_order_data_export']['error'] = 'Orders data retrieving for CSV report failed! ';
-            Wc_Rw_Order_Data_Export_Debug::wc_rw_order_data_export_error('Orders data retrieving for CSV report failed! ');
-            return $redirect_to;
+            return add_query_arg(
+                array(
+                    'report_id' => $report_id,
+                    'success' => 0,
+                    'count' => count($processed_ids),
+                    'type' => 'csv'
+                ),
+                $redirect_to
+            );
         }
 
         $csv = new Wc_Rw_Order_Data_Export_Csv_Creator();
@@ -66,64 +80,86 @@ class Wc_Rw_Order_Data_Export_Csv_Report {
 
         if($export) {
 
-            $_SESSION[$session_id]['success'] = true;
-            $_SESSION[$session_id]['export_type'] = 'csv';
-            $_SESSION[$session_id]['data'] = $export; //comment on testing
-            //$_SESSION[$session_id]['data'] = $ordersData; //uncomment on testing
-            $_SESSION[$session_id]['count'] = count($processed_ids);
+            set_transient( $report_id, $export, HOUR_IN_SECONDS );
+
+            $arguments = array(
+                'report_id' => $report_id,
+                'success' => 1,
+                'count' => count($processed_ids),
+                'type' => 'csv'
+            );
+
 
         } else {
-            Wc_Rw_Order_Data_Export_Debug::wc_rw_order_data_export_error('Error with CSV generating!');
-            $_SESSION[$session_id]['success'] = false;
-            $_SESSION[$session_id]['error'] = 'Ошибка при генерировании CSV! Обратитесь к разработчикам!';
+            Wc_Rw_Order_Data_Export_Debug::wc_rw_order_data_export_error('Creating CSV error in CSV Creator');
+            $arguments = array(
+                'report_id' => $report_id,
+                'success' => 0,
+                'count' => count($processed_ids),
+                'type' => 'csv'
+            );
+
         }
 
-        return $redirect_to;
-
+        return add_query_arg($arguments,  $redirect_to);
 
     }
 
+    /**
+     * Display admin notice after bulk action
+     */
     public function wc_rw_downloads_bulk_action_admin_notice_csv()
     {
 
-        if(!isset($_GET['session_id']))  return;
+        if(!isset($_GET['report_id']) && !isset($_GET['type']) && !isset($_GET['success']) && !isset($_GET['count']))  return;
 
-        $session_id = $_GET['session_id'];
+        $report_id = $_GET['report_id'];
+        $type = $_GET['type'];
+        $success = $_GET['success'];
+        $count = $_GET['count'];
 
-        if(!isset($_SESSION[$session_id]) || $_SESSION[$session_id]['export_type'] !== 'csv' ) return;
+        if (!Wc_Rw_Order_Data_Export_Validator::validate_report_id($report_id) ||
+            !Wc_Rw_Order_Data_Export_Validator::validate_type($type) ||
+            !Wc_Rw_Order_Data_Export_Validator::validate_success($success) ||
+            !Wc_Rw_Order_Data_Export_Validator::validate_count($count)) {
+            return;
+        }
 
-        if(($_SESSION[$session_id]['success'])){
+        // Check if type is correct
+        if($_GET['type'] !== 'csv' ) return;
+
+        if($_GET['success'] == 1 && get_transient($report_id)){
 
             echo('<div id="message" class="updated fade wc-rw-ode-csv-message">
-                <p>' . '<a class="wc-rw-ode-download-csv" href="' . esc_url(admin_url("admin-post.php?action=wc_rw_generate_csv_report&session_id=$session_id")) .' ">Download CSV</a></p>
-                <p>' . $_SESSION[$session_id]['count'] . ' orders were processed.</p>  
+                <p>' . '<a class="wc-rw-ode-download-csv" href="' . esc_url(admin_url("admin-post.php?action=wc_rw_generate_csv_report&report_id=$report_id")) .' ">Download CSV</a></p>
+                <p>' . $count . ' orders were processed.</p>  
               </div>');
 
         } else {
 
             echo ('<div id="message" class="updated fade">
                     <p>Error! Please try again later!</p>
-                    <p>'. $_SESSION['wc_rw_order_data_export']['error'] .'</p>
+                    <p>'. get_transient('wc_rw_error_' . $report_id) .'</p>
               </div>');
 
         }
 
-        unset($_SESSION['wc_rw_order_data_export']['error']);
-        unset($_SESSION[$session_id]['exported']);
+        delete_transient('wc_rw_error' . $report_id);
 
     }
 
-
+    /**
+     * Generate CSV report and return as download
+     */
     public function wc_rw_generate_csv_report(){
 
-        if(!$_GET['session_id']) return;
+        if(!$_GET['report_id'] || !Wc_Rw_Order_Data_Export_Validator::validate_report_id($_GET['report_id'])) return;
 
-        $session_id = $_GET['session_id'];
+        $report_id = $_GET['report_id'];
 
-        if (!isset($_SESSION[$session_id]['data'])) return;
+        $export = get_transient($report_id);
 
-        $export = $_SESSION[$session_id]['data'];
-        unset($_SESSION[$session_id]);
+        if (!$export) return;
 
         //wc_rw_order_data_export_debug($export); //only for testing, headers below and "echo" should be comment
 

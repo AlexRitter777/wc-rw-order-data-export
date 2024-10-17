@@ -17,6 +17,7 @@ return array(
     'Wc_Rw_Order_Data_Export_Init' => $baseDir . '/includes/class-wc-rw-order-data-export-init.php',
     'Wc_Rw_Order_Data_Export_Pdf_Invoices' => $baseDir . '/modules/pdf-invoices/class-wc-rw-order-data-export-pdf-invoices.php',
     'Wc_Rw_Order_Data_Export_Settings' => $baseDir . '/includes/class-wc-rw-order-data-export-settings.php',
+    'Wc_Rw_Order_Data_Export_Validator' => $baseDir . '/includes/class-wc-rw-order-data-export-validator.php',
     'Wc_Rw_Order_Data_Export_Xml_Creator' => $baseDir . '/modules/xml-export/class-wc-rw-order-data-export-xml-creator.php',
     'Wc_Rw_Order_Data_Export_Xml_Data' => $baseDir . '/modules/xml-export/class-wc-rw-order-data-export-xml-data.php',
     'Wc_Rw_Order_Data_Export_Xml_Report' => $baseDir . '/modules/xml-export/class-wc-rw-order-data-export-xml-report.php',
