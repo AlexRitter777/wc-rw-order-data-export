@@ -1,0 +1,365 @@
+# Copyright (C) 2024 Alexej Bogačev (RAIN WOOLF s.r.o.)
+# This file is distributed under the same license as the WooCommerce RW Order Data Export plugin.
+msgid ""
+msgstr ""
+"Project-Id-Version: WooCommerce RW Order Data Export 2.1.0\n"
+"Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/wc-rw-order-data-"
+"export\n"
+"POT-Creation-Date: 2024-10-17T16:27:34+03:00\n"
+"PO-Revision-Date: 2024-10-17 17:17+0200\n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"Language: bg_BG\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Poedit 3.5\n"
+"X-Domain: wc-rw-order-data-export\n"
+
+#. Plugin Name of the plugin
+#: wc-rw-order-data-export.php
+msgid "WooCommerce RW Order Data Export"
+msgstr ""
+
+#. Description of the plugin
+#: wc-rw-order-data-export.php
+msgid ""
+"Creates and sends to customers PDF invoices, credit notes, and proformas. "
+"Generates XML reports for importing into Entry software. Produces CSV export "
+"reports for VAT EU declaration purposes."
+msgstr ""
+
+#. Author of the plugin
+#: wc-rw-order-data-export.php
+msgid "Alexej Bogačev (RAIN WOOLF s.r.o.)"
+msgstr ""
+
+#: config/company_data.php:12
+msgid "Czech Republic"
+msgstr "Чешка република"
+
+#: config/countries.php:6
+msgid "Poland"
+msgstr ""
+
+#: config/countries.php:7
+msgid "Lithuania"
+msgstr ""
+
+#: config/countries.php:8
+msgid "Bulgaria"
+msgstr "България"
+
+#: config/countries.php:9
+msgid "Romania"
+msgstr ""
+
+#: config/countries.php:10
+msgid "Slovenia"
+msgstr ""
+
+#: config/countries.php:11
+msgid "Armenia"
+msgstr ""
+
+#: config/countries.php:12
+msgid "Georgia"
+msgstr ""
+
+#: config/countries.php:13
+msgid "Kazakhstan"
+msgstr ""
+
+#: config/countries.php:14
+msgid "Lebanon"
+msgstr ""
+
+#: config/countries.php:15
+msgid "Qatar"
+msgstr ""
+
+#: config/countries.php:16
+msgid "Russia"
+msgstr ""
+
+#: config/countries.php:17
+msgid "Saudi Arabia"
+msgstr ""
+
+#: config/countries.php:18
+msgid "United Arab Emirates"
+msgstr ""
+
+#: config/payment_methods.php:5
+msgid "Cash on delivery"
+msgstr ""
+
+#: config/payment_methods.php:6
+msgid "Bank transfer"
+msgstr ""
+
+#: config/payment_methods.php:7 config/payment_methods.php:10
+msgid "Card"
+msgstr ""
+
+#: config/payment_methods.php:8
+msgid "Google Pay"
+msgstr ""
+
+#: config/payment_methods.php:9
+msgid "Apple Pay"
+msgstr ""
+
+#: includes/class-wc-rw-order-data-export-init.php:49
+msgid "Settings"
+msgstr ""
+
+#: includes/class-wc-rw-order-data-export-settings.php:21
+msgid "Wc Rw Order Data Export Settings"
+msgstr ""
+
+#: includes/class-wc-rw-order-data-export-settings.php:41
+msgid "Invoice Settings"
+msgstr ""
+
+#: includes/class-wc-rw-order-data-export-settings.php:48
+msgid "Shipping alternative name:"
+msgstr ""
+
+#: includes/class-wc-rw-order-data-export-settings.php:57
+msgid "Cash on delivery alternative name:"
+msgstr ""
+
+#: includes/class-wc-rw-order-data-export-settings.php:81
+msgid "Company data"
+msgstr ""
+
+#: includes/class-wc-rw-order-data-export-settings.php:88
+msgid "IBAN:"
+msgstr ""
+
+#: includes/class-wc-rw-order-data-export-settings.php:98
+msgid "SWIFT/BIC:"
+msgstr ""
+
+#: includes/class-wc-rw-order-data-export-settings.php:108
+msgid "Bank name:"
+msgstr ""
+
+#: includes/class-wc-rw-order-data-export-settings.php:118
+msgid "Bank street:"
+msgstr ""
+
+#: includes/class-wc-rw-order-data-export-settings.php:128
+msgid "Bank city:"
+msgstr ""
+
+#: includes/class-wc-rw-order-data-export-settings.php:138
+msgid "ZIP:"
+msgstr ""
+
+#: includes/class-wc-rw-order-data-export-settings.php:148
+msgid "Bank country:"
+msgstr ""
+
+#: includes/class-wc-rw-order-data-export-settings.php:166
+msgid "WooCommerce RW Order Data Export Settings"
+msgstr ""
+
+#: modules/csv-export/class-wc-rw-order-data-export-csv-report.php:32
+msgid "Download CSV"
+msgstr ""
+
+#: modules/pdf-invoices/class-wc-rw-order-data-export-pdf-invoices.php:525
+msgid "Attached to this email, you'll find the invoice for your order."
+msgstr "В приложението на този имейл ще намерите фактурата за поръчката си."
+
+#: modules/pdf-invoices/class-wc-rw-order-data-export-pdf-invoices.php:533
+msgid ""
+"Attached to this email, you'll find the credit note for your cancelled order."
+msgstr ""
+"В приложението на този имейл ще намерите кредитното известие за анулираната "
+"ви поръчка."
+
+#: modules/pdf-invoices/class-wc-rw-order-data-export-pdf-invoices.php:540
+msgid ""
+"Attached, you will find the proforma invoice with the details for making a "
+"bank transfer."
+msgstr ""
+"В приложението ще намерите проформа фактурата с подробностите за банковия "
+"превод."
+
+#: modules/pdf-invoices/invoices_templates/creditnote.php:19
+msgid "Credit Note"
+msgstr ""
+
+#: modules/pdf-invoices/invoices_templates/creditnote.php:22
+msgid "to invoice"
+msgstr ""
+
+#: modules/pdf-invoices/invoices_templates/creditnote.php:29
+#: modules/pdf-invoices/invoices_templates/invoice.php:29
+#: modules/pdf-invoices/invoices_templates/proforma.php:28
+msgid "Supplier"
+msgstr ""
+
+#: modules/pdf-invoices/invoices_templates/creditnote.php:30
+#: modules/pdf-invoices/invoices_templates/invoice.php:30
+#: modules/pdf-invoices/invoices_templates/proforma.php:29
+msgid "Customer"
+msgstr ""
+
+#: modules/pdf-invoices/invoices_templates/creditnote.php:55
+#: modules/pdf-invoices/invoices_templates/invoice.php:55
+#: modules/pdf-invoices/invoices_templates/proforma.php:54
+msgid "Reg.No"
+msgstr ""
+
+#: modules/pdf-invoices/invoices_templates/creditnote.php:56
+#: modules/pdf-invoices/invoices_templates/invoice.php:56
+#: modules/pdf-invoices/invoices_templates/proforma.php:55
+msgid "vat id"
+msgstr ""
+
+#: modules/pdf-invoices/invoices_templates/creditnote.php:69
+#: modules/pdf-invoices/invoices_templates/invoice.php:69
+#: modules/pdf-invoices/invoices_templates/proforma.php:68
+msgid "Order number"
+msgstr ""
+
+#: modules/pdf-invoices/invoices_templates/creditnote.php:70
+#: modules/pdf-invoices/invoices_templates/invoice.php:70
+#: modules/pdf-invoices/invoices_templates/proforma.php:69
+msgid "Reference"
+msgstr ""
+
+#: modules/pdf-invoices/invoices_templates/creditnote.php:71
+#: modules/pdf-invoices/invoices_templates/invoice.php:71
+#: modules/pdf-invoices/invoices_templates/proforma.php:70
+msgid "Payment method"
+msgstr ""
+
+#: modules/pdf-invoices/invoices_templates/creditnote.php:72
+#: modules/pdf-invoices/invoices_templates/invoice.php:72
+#: modules/pdf-invoices/invoices_templates/proforma.php:71
+msgid "Invoice currency"
+msgstr ""
+
+#: modules/pdf-invoices/invoices_templates/creditnote.php:82
+#: modules/pdf-invoices/invoices_templates/invoice.php:82
+#: modules/pdf-invoices/invoices_templates/proforma.php:90
+msgid "Issued on"
+msgstr ""
+
+#: modules/pdf-invoices/invoices_templates/creditnote.php:83
+#: modules/pdf-invoices/invoices_templates/invoice.php:83
+#: modules/pdf-invoices/invoices_templates/proforma.php:91
+msgid "Due on"
+msgstr ""
+
+#: modules/pdf-invoices/invoices_templates/creditnote.php:84
+#: modules/pdf-invoices/invoices_templates/invoice.php:84
+msgid "Taxable fulfillment due"
+msgstr ""
+
+#: modules/pdf-invoices/invoices_templates/creditnote.php:101
+#: modules/pdf-invoices/invoices_templates/creditnote.php:158
+#: modules/pdf-invoices/invoices_templates/creditnote.php:186
+#: modules/pdf-invoices/invoices_templates/invoice.php:101
+#: modules/pdf-invoices/invoices_templates/invoice.php:158
+#: modules/pdf-invoices/invoices_templates/invoice.php:186
+#: modules/pdf-invoices/invoices_templates/proforma.php:122
+#: modules/pdf-invoices/invoices_templates/proforma.php:179
+#: modules/pdf-invoices/invoices_templates/proforma.php:214
+msgid "vat"
+msgstr ""
+
+#: modules/pdf-invoices/invoices_templates/creditnote.php:102
+#: modules/pdf-invoices/invoices_templates/invoice.php:102
+#: modules/pdf-invoices/invoices_templates/proforma.php:123
+msgid "unit price"
+msgstr ""
+
+#: modules/pdf-invoices/invoices_templates/creditnote.php:103
+#: modules/pdf-invoices/invoices_templates/invoice.php:103
+#: modules/pdf-invoices/invoices_templates/proforma.php:124
+msgid "total w/o vat"
+msgstr ""
+
+#: modules/pdf-invoices/invoices_templates/creditnote.php:104
+#: modules/pdf-invoices/invoices_templates/invoice.php:104
+#: modules/pdf-invoices/invoices_templates/proforma.php:125
+msgid "total incl. vat"
+msgstr ""
+
+#: modules/pdf-invoices/invoices_templates/creditnote.php:111
+#: modules/pdf-invoices/invoices_templates/invoice.php:111
+#: modules/pdf-invoices/invoices_templates/proforma.php:132
+msgid "psc"
+msgstr ""
+
+#: modules/pdf-invoices/invoices_templates/creditnote.php:156
+#: modules/pdf-invoices/invoices_templates/creditnote.php:184
+#: modules/pdf-invoices/invoices_templates/invoice.php:156
+#: modules/pdf-invoices/invoices_templates/invoice.php:184
+#: modules/pdf-invoices/invoices_templates/proforma.php:177
+#: modules/pdf-invoices/invoices_templates/proforma.php:212
+msgid "vat rate"
+msgstr ""
+
+#: modules/pdf-invoices/invoices_templates/creditnote.php:157
+#: modules/pdf-invoices/invoices_templates/creditnote.php:185
+#: modules/pdf-invoices/invoices_templates/invoice.php:157
+#: modules/pdf-invoices/invoices_templates/invoice.php:185
+#: modules/pdf-invoices/invoices_templates/proforma.php:178
+#: modules/pdf-invoices/invoices_templates/proforma.php:213
+msgid "vat base"
+msgstr ""
+
+#: modules/pdf-invoices/invoices_templates/creditnote.php:159
+#: modules/pdf-invoices/invoices_templates/invoice.php:159
+#: modules/pdf-invoices/invoices_templates/proforma.php:180
+msgid "vat in czk"
+msgstr ""
+
+#: modules/pdf-invoices/invoices_templates/invoice.php:19
+msgid "Invoice"
+msgstr ""
+
+#: modules/pdf-invoices/invoices_templates/invoice.php:22
+msgid "tax document"
+msgstr ""
+
+#: modules/pdf-invoices/invoices_templates/proforma.php:18
+msgid "Proforoma invoice"
+msgstr ""
+
+#: modules/pdf-invoices/invoices_templates/proforma.php:21
+msgid "Not tax document"
+msgstr ""
+
+#: modules/pdf-invoices/invoices_templates/proforma.php:72
+msgid "IBAN"
+msgstr ""
+
+#: modules/pdf-invoices/invoices_templates/proforma.php:73
+msgid "SWIFT"
+msgstr ""
+
+#: modules/pdf-invoices/invoices_templates/proforma.php:74
+msgid "Bank"
+msgstr ""
+
+#: modules/pdf-invoices/invoices_templates/proforma.php:105
+msgid "Bank address"
+msgstr ""
+
+#: modules/pdf-invoices/invoices_templates/proforma.php:203
+msgid ""
+"The VAT amounts are for informational purposes only, as this proforma "
+"invoice is not a tax document."
+msgstr ""
+
+#: modules/xml-export/class-wc-rw-order-data-export-xml-report.php:30
+msgid "Download XML"
+msgstr ""

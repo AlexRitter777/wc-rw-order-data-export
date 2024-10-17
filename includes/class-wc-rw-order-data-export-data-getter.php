@@ -9,8 +9,6 @@
 class Wc_Rw_Order_Data_Export_Data_Getter
 {
 
-    protected string $report_id;
-
     protected int $internal_error_code;
 
     protected array $countries;
@@ -24,10 +22,6 @@ class Wc_Rw_Order_Data_Export_Data_Getter
     protected array $errors;
 
 
-    public function __construct($report_id)
-    {
-        $this->report_id = $report_id;
-    }
 
     /**
      * Loads properties from config files.

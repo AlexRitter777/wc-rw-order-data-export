@@ -4,6 +4,15 @@
 class Wc_Rw_Order_Data_Export_Csv_Data extends Wc_Rw_Order_Data_Export_Data_Getter
 {
 
+    private string $report_id;
+
+
+    public function __construct($report_id)
+    {
+        $this->report_id = $report_id;
+    }
+
+
     public function getCSVData($orders){
 
         $count = 0; //invoices counter
