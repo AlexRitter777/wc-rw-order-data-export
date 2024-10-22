@@ -32,7 +32,7 @@ return [
 
     'SI' => [
         'SlovinskoZaklad' => 22,
-        'SlovinskoSnizena' => 9.5,
+        'SlovinskoSnizena' => "9.5",
     ]
 
 ];
