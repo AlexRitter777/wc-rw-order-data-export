@@ -38,7 +38,7 @@ class Wc_Rw_Order_Data_Export_Dpf_Data_Taxes_Off extends Wc_Rw_Order_Data_Export
 
         // Retrieve WooCommerce order object.
         if (!$this->checkRatesYear()) {
-            $this->getError('year', $error);
+            $this->setErrorByName('year', $error);
             return false; // run always after lading exchanges_rates!
         }
 
@@ -50,7 +50,7 @@ class Wc_Rw_Order_Data_Export_Dpf_Data_Taxes_Off extends Wc_Rw_Order_Data_Export
 
             // Check if the order without VAT and VAT is disabled in WooCommerce
             if ($order->get_total_tax()) {
-                $this->getError('vat_total_off', $error);
+                $this->setErrorByName('vat_total_off', $error);
                 return false;
             }
 
@@ -76,7 +76,7 @@ class Wc_Rw_Order_Data_Export_Dpf_Data_Taxes_Off extends Wc_Rw_Order_Data_Export
             return $data;
         }
 
-        $this->getError('order', $error);
+        $this->setErrorByName('order', $error);
         return false;
 
     }

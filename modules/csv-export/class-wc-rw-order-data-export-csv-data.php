@@ -4,15 +4,6 @@
 class Wc_Rw_Order_Data_Export_Csv_Data extends Wc_Rw_Order_Data_Export_Data_Getter
 {
 
-    private string $report_id;
-
-
-    public function __construct($report_id)
-    {
-        $this->report_id = $report_id;
-    }
-
-
     public function getCSVData($orders){
 
         $count = 0; //invoices counter
@@ -38,20 +29,20 @@ class Wc_Rw_Order_Data_Export_Csv_Data extends Wc_Rw_Order_Data_Export_Data_Gett
 
                 //Chek if VAT is turn on in WooCommerce
                 if (!$order->get_total_tax()){
-                    $this->getErrorAndOrderID('vat_total', $error, $orderId);
+                    $this->setErrorAndOrderIDbyName('vat_total', $error, $orderId);
                     return false;
                 }
 
                 //Order details
                 $data['orderId'] = $orderId;
                 if(!$data['invoiceDate'] = $this->getInvoiceDate($order)){
-                    $this->getErrorAndOrderID('invoice_date', $error, $orderId);
+                    $this->setErrorAndOrderIDbyName('invoice_date', $error, $orderId);
                     return false;
                 };
 
                 //Invoice number
                 if (!$data['invoiceNumber'] = $this->getInvoiceNumber($orderId, $this->prefixes)) {
-                    $this->getErrorAndOrderID('prefixes', $error, $orderId);
+                    $this->setErrorAndOrderIDbyName('prefixes', $error, $orderId);
                     return false;
                 }
 
@@ -66,18 +57,18 @@ class Wc_Rw_Order_Data_Export_Csv_Data extends Wc_Rw_Order_Data_Export_Data_Gett
 
                 //Client Billing Country
                 if (!$data['clientBillingCountryFull'] = $this->getOrderClientCountry($order)) {
-                    $this->getError('countries', $error);
+                    $this->setErrorByName('countries', $error);
                     return false;
                 }
 
                 if(!$data['vatRatesValues'] = $this->getVatRatesValues($order)){
 
-                    if ($_SESSION['int_err_code'] == 1) {
-                        $this->getError('vat_rates', $error);
-                    } elseif ($_SESSION['int_err_code'] == 2) {
-                        $this->getError('vat_item', $error);
-                    } elseif ($_SESSION['int_err_code'] == 3) {
-                        $this->getError('fee_or_shipping_vat', $error);
+                    if ($this->internal_error_code == 1) {
+                        $this->setErrorByName('vat_rates', $error);
+                    } elseif ($this->internal_error_code == 2) {
+                        $this->setErrorByName('vat_item', $error);
+                    } elseif ($this->internal_error_code == 3) {
+                        $this->setErrorByName('fee_or_shipping_vat', $error);
                     }
 
                     return false;
@@ -85,18 +76,18 @@ class Wc_Rw_Order_Data_Export_Csv_Data extends Wc_Rw_Order_Data_Export_Data_Gett
 
                 if(!$data['vatBases'] = $this->getVatBases($order)){
 
-                    if ($_SESSION['int_err_code'] == 1) {
-                        $this->getError('vat_rates', $error);
-                    } elseif ($_SESSION['int_err_code'] == 2) {
-                        $this->getError('vat_item', $error);
-                    } elseif ($_SESSION['int_err_code'] == 3) {
-                        $this->getError('fee_or_shipping_vat', $error);
+                    if ($this->internal_error_code == 1) {
+                        $this->setErrorByName('vat_rates', $error);
+                    } elseif ($this->internal_error_code == 2) {
+                        $this->setErrorByName('vat_item', $error);
+                    } elseif ($this->internal_error_code == 3) {
+                        $this->setErrorByName('fee_or_shipping_vat', $error);
                     }
 
                 }
 
             } else {
-                $this->getErrorAndOrderID('order', $error, $orderId);
+                $this->setErrorAndOrderIDbyName('order', $error, $orderId);
                 return false;
             }
 

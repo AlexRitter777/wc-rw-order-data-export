@@ -21,6 +21,14 @@ class Wc_Rw_Order_Data_Export_Data_Getter
     protected array $orderExchangeRates;
     protected array $errors;
 
+    protected string $report_id; //uniq Id for XML or CSV reports
+
+
+    public function __construct($report_id = null)
+    {
+        $this->report_id = $report_id;
+    }
+
 
 
     /**

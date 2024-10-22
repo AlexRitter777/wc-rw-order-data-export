@@ -37,7 +37,7 @@ class Wc_Rw_Order_Data_Export_Dpf_Data_Taxes_On extends Wc_Rw_Order_Data_Export_
 
         // Check if exchange rates are up-to-date.
         if(!$this->checkRatesYear()) {
-            $this->getError('year', $error);
+            $this->setErrorByName('year', $error);
             return false; // run always after lading exchanges_rates!
         }
 
@@ -49,7 +49,7 @@ class Wc_Rw_Order_Data_Export_Dpf_Data_Taxes_On extends Wc_Rw_Order_Data_Export_
 
             // Check if the order includes VAT and VAT is enabled in WooCommerce
             if (!$order->get_total_tax()){
-                $this->getError('vat_total', $error);
+                $this->setErrorByName('vat_total', $error);
                 return false;
             }
 
@@ -62,15 +62,15 @@ class Wc_Rw_Order_Data_Export_Dpf_Data_Taxes_On extends Wc_Rw_Order_Data_Export_
 
             // Get items data and validate VAT.
             if(!$data['itemsData'] = $this->getItemsData($order)){
-                $this->getError('vat_item', $error);
+                $this->setErrorByName('vat_item', $error);
                 return false;
             };
             $data['itemsTotalValues'] = $this->getItemsTotalValues($order);
 
 
             // Retrieve fees and shipping data, validate VAT.
-            if (is_null($data['feesData'] = $this->getFees($order))) {$this->getError('fee_vat', $error); return false;}
-            if (is_null($data['shippingData'] = $this->getShipping($order))) {$this->getError('shipping_vat', $error); return false;}
+            if (is_null($data['feesData'] = $this->getFees($order))) {$this->setErrorByName('fee_vat', $error); return false;}
+            if (is_null($data['shippingData'] = $this->getShipping($order))) {$this->setErrorByName('shipping_vat', $error); return false;}
 
             // Calculate total price including VAT.
             $data['totalPriceInclVat'] = (float)$data['itemsTotalValues']['totalIncVat'] + (isset($data['feesData']['totalIncVat']) ? (float)$data['feesData']['totalIncVat'] : 0) + (isset($data['shippingData']['totalIncVat']) ? (float)$data['shippingData']['totalIncVat'] : 0);
@@ -96,7 +96,7 @@ class Wc_Rw_Order_Data_Export_Dpf_Data_Taxes_On extends Wc_Rw_Order_Data_Export_
             return $data;
         }
 
-        $this->getError('order', $error);
+        $this->setErrorByName('order', $error);
         return false;
 
     }
@@ -107,12 +107,12 @@ class Wc_Rw_Order_Data_Export_Dpf_Data_Taxes_On extends Wc_Rw_Order_Data_Export_
      */
     private function handleVatError()
     {
-        if ($_SESSION['int_err_code'] == 1) {
-            $this->getError('vat_rates', 'General error');
-        } elseif ($_SESSION['int_err_code'] == 2) {
-            $this->getError('vat_item', 'General error');
-        } elseif ($_SESSION['int_err_code'] == 3) {
-            $this->getError('fee_or_shipping_vat', 'General error');
+        if ($this->internal_error_code == 1) {
+            $this->setErrorByName('vat_rates', 'General error');
+        } elseif ($this->internal_error_code  == 2) {
+            $this->setErrorByName('vat_item', 'General error');
+        } elseif ($this->internal_error_code  == 3) {
+            $this->setErrorByName('fee_or_shipping_vat', 'General error');
         }
     }
 
