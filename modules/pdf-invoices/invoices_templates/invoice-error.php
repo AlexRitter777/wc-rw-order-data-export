@@ -10,7 +10,7 @@
 
     <h2>Při vygenerování faktury došlo k následujícím chybám:</h2>
 
-    <p style="color: red; font-size: 20px;"><b><?=!empty($_SESSION['error']) ? $_SESSION['error'] : 'При выполнении программы произошла критическая ошибка! Обратитесь к разрабочтикам!'; ?></b></p>
+    <p style="color: red; font-size: 20px;"><b><?=get_transient('wc_rw_error_') ? get_transient('wc_rw_error_') : 'При выполнении программы произошла критическая ошибка! Обратитесь к разрабочтикам!'; ?></b></p>
 
 </head>
 <body>
