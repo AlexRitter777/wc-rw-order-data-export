@@ -24,7 +24,7 @@ class Wc_Rw_Order_Data_Export_Data_Getter
     protected string $report_id; //uniq Id for XML or CSV reports
 
 
-    public function __construct($report_id = null)
+    public function __construct($report_id = '')
     {
         $this->report_id = $report_id;
     }
