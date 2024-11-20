@@ -411,7 +411,7 @@ class Wc_Rw_Order_Data_Export_Pdf_Invoices
      * @return array
      * @throws MpdfException
      */
-    public function wc_rw_attach_pdf_to_order_completed_email( array $attachments, string $email_id, WC_Order $order ) : array
+    public function wc_rw_attach_pdf_to_order_completed_email( array $attachments, string $email_id, object $order ) : array
     {
 
         $invoice_date = $order->get_meta( 'wc_wr_order_data_export_invoice_date' );
@@ -442,7 +442,7 @@ class Wc_Rw_Order_Data_Export_Pdf_Invoices
      * @return array
      * @throws MpdfException
      */
-    public function wc_rw_attach_pdf_to_order_cancelled_email(array $attachments, string $email_id, WC_Order $order ) : array
+    public function wc_rw_attach_pdf_to_order_cancelled_email(array $attachments, string $email_id, object $order ) : array
     {
 
         $credit_note_date = $order->get_meta( 'wc_wr_order_data_export_credit_note_date' );
@@ -473,7 +473,7 @@ class Wc_Rw_Order_Data_Export_Pdf_Invoices
      * @return array
      * @throws MpdfException
      */
-    public function wc_rw_attach_pdf_to_order_created_email(array $attachments, string $email_id, WC_Order $order ) : array
+    public function wc_rw_attach_pdf_to_order_created_email(array $attachments, string $email_id, object $order ) : array
     {
 
         $paymentMethod = $order->get_payment_method();

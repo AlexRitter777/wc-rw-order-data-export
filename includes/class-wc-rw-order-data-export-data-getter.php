@@ -502,15 +502,25 @@ class Wc_Rw_Order_Data_Export_Data_Getter
                     return false;
                 }
                 //get product vat rate
-                $product = wc_get_product( $item->get_product_id() );
-                $tax_rates = WC_Tax::get_rates( $product->get_tax_class() );
-                $tax_rate = reset($tax_rates);
-                $tax_rate_value = $tax_rate['rate'];
 
-                if ($tax_rate_value == $value)  {
-                    $vatRatesValues[$value] += round($item->get_total_tax(),2);
-                    $itemsCounter++;
+                try {
+                    $product = wc_get_product( $item->get_product_id() );
+                    if(!$product){
+                        throw new Exception("Error. Product was deleted.");
+                    }
+                    $tax_rates = WC_Tax::get_rates( $product->get_tax_class() );
+                    $tax_rate = reset($tax_rates);
+                    $tax_rate_value = $tax_rate['rate'];
+
+                    if ($tax_rate_value == $value)  {
+                        $vatRatesValues[$value] += round($item->get_total_tax(),2);
+                        $itemsCounter++;
+                    }
+                }catch (Exception $e){
+                    Wc_Rw_Order_Data_Export_Debug::wc_rw_order_data_export_error($e->getMessage());
+                    wp_die(__('An error occurred: ', 'wc-rw-order-data-export') . $e->getMessage());
                 }
+
             }
             /*
              * here is valid a rule, that shipping costs and fees
@@ -604,18 +614,23 @@ class Wc_Rw_Order_Data_Export_Data_Getter
                     $this->internal_error_code = 2;
                     return false;
                 }
-                $product = wc_get_product( $item->get_product_id() );
-                $tax_rates = WC_Tax::get_rates( $product->get_tax_class() );
-                $tax_rate = reset($tax_rates);
-                $tax_rate_value = $tax_rate['rate'];
+                try {
+                    $product = wc_get_product( $item->get_product_id() );
+                    if(!$product){
+                        throw new Exception("Error. Product was deleted.");
+                    }
+                    $tax_rates = WC_Tax::get_rates( $product->get_tax_class() );
+                    $tax_rate = reset($tax_rates);
+                    $tax_rate_value = $tax_rate['rate'];
 
-                if ($tax_rate_value == $value)  {
-
-                    $vatBases[$value] += round($item->get_total(),2);
-                    $itemsCounter++;
-
+                    if ($tax_rate_value == $value)  {
+                        $vatBases[$value] += round($item->get_total(),2);
+                        $itemsCounter++;
+                    }
+                }catch (Exception $e){
+                    Wc_Rw_Order_Data_Export_Debug::wc_rw_order_data_export_error($e->getMessage());
+                    wp_die(__('An error occurred: ', 'wc-rw-order-data-export') . $e->getMessage());
                 }
-
             }
             /*
              * here is valid a rule, that shipping costs and fees
@@ -706,6 +721,11 @@ class Wc_Rw_Order_Data_Export_Data_Getter
             $itemData[$i]['quantity'] = $item->get_quantity();
 
             $product = wc_get_product( $item->get_product_id() );
+
+            if(!$product){
+                return false;
+            }
+
             $tax_rates = WC_Tax::get_rates( $product->get_tax_class());
             $tax_rate = reset($tax_rates);
             $itemData[$i]['tax_rate'] = $tax_rate['rate'];
