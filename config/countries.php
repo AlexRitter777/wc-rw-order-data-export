@@ -16,6 +16,9 @@ return [
     'RU' => __('Russia', 'wc-rw-order-data-export'),
     'SA' => __('Saudi Arabia', 'wc-rw-order-data-export'),
     'AE' => __('United Arab Emirates', 'wc-rw-order-data-export'),
+    'DZ' => __('Algeria',  'wc-rw-order-data-export'),
+    'BH' => __('Bahrain',  'wc-rw-order-data-export'),
+
 
 
 ];
