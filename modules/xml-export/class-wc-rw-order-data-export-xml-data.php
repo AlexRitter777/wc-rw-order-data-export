@@ -51,7 +51,7 @@ class Wc_Rw_Order_Data_Export_Xml_Data extends Wc_Rw_Order_Data_Export_Data_Gett
                 }
 
                 //Order exchange rate
-                if (!$this->orderExchangeRates[$orderId] = $this->getOrderRate($order, $this->exchange_rates)){
+                if (!$this->orderExchangeRates[$orderId] = $this->getOrSetOrderRate($order, $this->exchange_rates)){
                     $this->setErrorAndOrderIDbyName('exchange_rates', $error, $orderId);
                     return false;
                 }

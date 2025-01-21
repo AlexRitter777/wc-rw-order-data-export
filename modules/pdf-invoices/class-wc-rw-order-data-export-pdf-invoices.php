@@ -39,6 +39,9 @@ class Wc_Rw_Order_Data_Export_Pdf_Invoices
         // Display custom proforma date field in WooCommerce order edit page
         add_action( 'woocommerce_admin_order_data_after_order_details', [$this, 'wc_rw_show_custom_order_meta_field_proforma_date'], 10, 1);
 
+        // Display custom exchange rate field in WooCommerce order edit page
+        add_action( 'woocommerce_admin_order_data_after_order_details', [$this, 'wc_rw_show_custom_order_meta_field_exchange_rate'], 10, 1);
+
         // Save custom invoice date field when saving order details
         add_action( 'woocommerce_process_shop_order_meta', [$this, 'wc_rw_save_general_details_invoice_date'], 10, 1);
 
@@ -48,6 +51,9 @@ class Wc_Rw_Order_Data_Export_Pdf_Invoices
         // Save custom proforma date field when saving order details
         add_action( 'woocommerce_process_shop_order_meta', [$this, 'wc_rw_save_general_details_proforma_date'], 10, 1);
 
+        // Save custom exchange rate field when saving order details
+        add_action( 'woocommerce_process_shop_order_meta', [$this, 'wc_rw_save_general_details_order_exchange_rate'], 10, 1);
+
         // Hide custom meta fields on the order edit page (invoice date)
         add_filter('is_protected_meta', [$this, 'wc_rw_hide_invoice_date_meta_field'], 10, 2);
 
@@ -56,6 +62,9 @@ class Wc_Rw_Order_Data_Export_Pdf_Invoices
 
         // Hide custom meta fields on the order edit page (proforma date)
         add_filter('is_protected_meta', [$this, 'wc_rw_hide_proforma_date_meta_field'], 10, 2);
+
+        // Hide custom meta fields on the order edit page (exchange rate)
+        add_filter('is_protected_meta', [$this, 'wc_rw_hide_exchange_rate_meta_field'], 10, 2);
 
         // Generate PDF for invoice via admin-post
         add_action('admin_post_generate_pdf_invoice', [$this, 'wc_rw_generate_pdf_invoice']);
@@ -186,6 +195,33 @@ class Wc_Rw_Order_Data_Export_Pdf_Invoices
 
     }
 
+
+    /**
+     * Displays a custom meta field for the exchange rate on the WooCommerce order edit page.
+     *
+     * @param WC_Order $order
+     */
+    public function wc_rw_show_custom_order_meta_field_exchange_rate(WC_Order $order){
+
+        $exchange_rate = $order->get_meta( 'wc_wr_order_data_export_order_exchange_rate' );
+
+        woocommerce_wp_text_input( array(
+            'id' => 'wc_rw_ode_order_exchange_rate',
+            'label' => 'Order exchange rate:',
+            'wrapper_class' => 'form-field-wide wc-rw-data-export-invoice-date',
+            'style' => 'width:100%;',
+            'value' => $exchange_rate,
+            'description' => '',
+            'type' => 'number',
+            'custom_attributes' => [
+                'step' => '0.001',
+                'min'  => '0.01',
+                'max'  => '1000'
+            ],
+        )) ;
+
+    }
+
     /**
      * Saves the custom invoice date field when updating the order in the WooCommerce admin.
      *
@@ -232,6 +268,21 @@ class Wc_Rw_Order_Data_Export_Pdf_Invoices
             delete_post_meta($order_id, 'wc_wr_order_data_export_proforma_date');
         }
     }
+
+    /**
+     * Saves the custom exchange rate field when updating the order in the WooCommerce admin.
+     *
+     * @param int $order_id
+     */
+    public function wc_rw_save_general_details_order_exchange_rate(int $order_id){
+        if(!empty($_POST['wc_rw_ode_order_exchange_rate'])) {
+            $exchange_rate = $_POST['wc_rw_ode_order_exchange_rate'];
+            update_post_meta( $order_id, 'wc_wr_order_data_export_order_exchange_rate', $exchange_rate ) ;
+        } else {
+            delete_post_meta($order_id, 'wc_wr_order_data_export_order_exchange_rate');
+        }
+    }
+
 
     /**
      * Hides the custom invoice date meta field on the WooCommerce order page.
@@ -284,6 +335,25 @@ class Wc_Rw_Order_Data_Export_Pdf_Invoices
         return $protected;
 
     }
+
+    /**
+     * Hides the custom exchange rate meta field on the WooCommerce order page.
+     *
+     * @param bool $protected
+     * @param string $meta_key
+     * @return bool
+     */
+    public function wc_rw_hide_exchange_rate_meta_field(bool $protected, string $meta_key) : bool
+    {
+
+        if( in_array($meta_key, array('wc_wr_order_data_export_order_exchange_rate'))){
+            return true;
+        }
+        return $protected;
+
+    }
+
+
 
     /**
      * Handles the generation of a PDF invoice for a WooCommerce order.

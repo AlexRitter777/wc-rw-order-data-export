@@ -361,7 +361,14 @@ class Wc_Rw_Order_Data_Export_Data_Getter
      */
     protected function getVarSymbol(int $orderId) : string
     {
-        return date('Y') .'0'. $orderId;
+        $order = $this->returnOrder($orderId);
+        $invoiceDate = $this->getInvoiceDate($order);
+        if(!empty($invoiceDate)){
+            $invoiceYear = date('Y', strtotime($invoiceDate));
+        }else{
+            $invoiceYear = date('Y');
+        }
+        return $invoiceYear .'0'. $orderId;
     }
 
 
@@ -374,11 +381,19 @@ class Wc_Rw_Order_Data_Export_Data_Getter
      */
     protected function getInvoiceNumber(int $orderId, array $prefixes)
     {
+        $order = $this->returnOrder($orderId);
+        $invoiceDate = $this->getInvoiceDate($order);
+        if(!empty($invoiceDate)){
+            $invoiceYear = date('Y', strtotime($invoiceDate));
+        }else{
+            $invoiceYear = date('Y');
+        }
+
         $siteURL = $_SERVER['SERVER_NAME'];
         if (!empty($siteURL)) {
             foreach ($prefixes as $url => $prefix) {
                 if ($siteURL == $url) {
-                    return strtoupper($prefix) . date('Y') . '0' . $orderId;
+                    return strtoupper($prefix) . $invoiceYear . '0' . $orderId;
                 }
             }
         }
@@ -416,6 +431,33 @@ class Wc_Rw_Order_Data_Export_Data_Getter
      */
     protected function getOrderRate(object $order, array $currencies)
     {
+        $curr = $order->get_currency();
+        foreach ($currencies as $code => $rate) {
+            if ($code == $curr) {
+                return $rate;
+            }
+        }
+
+        return false;
+    }
+
+    /**
+     * Retrieves or sets the exchange rate for the current order's currency.
+     *
+     * This method first checks if the exchange rate is already saved in the order metadata.
+     * If not, it looks for the exchange rate in the provided configuration array based on the order's currency.
+     * Returns the exchange rate if found, otherwise returns false.
+     *
+     * @param object $order
+     * @param array $currencies
+     * @return float|boolean
+     */
+    protected function getOrSetOrderRate(object $order, array $currencies)
+    {
+        if(!empty($exchange_rate = $order->get_meta( 'wc_wr_order_data_export_order_exchange_rate' ))){
+            return $exchange_rate;
+        }
+
         $curr = $order->get_currency();
         foreach ($currencies as $code => $rate) {
             if ($code == $curr) {
@@ -1045,7 +1087,7 @@ class Wc_Rw_Order_Data_Export_Data_Getter
     {
 
         // Order exchange rate
-        if (!$this->orderExchangeRates[$orderId] = $this->getOrderRate($order, $this->exchange_rates)) {
+        if (!$this->orderExchangeRates[$orderId] = $this->getOrSetOrderRate($order, $this->exchange_rates)) {
             $this->setErrorByName('exchange_rates', $error);
             return false;
         }
@@ -1173,7 +1215,6 @@ class Wc_Rw_Order_Data_Export_Data_Getter
         $result['companyStreet'] = $companyData['companyStreet'];
         $result['companyCity'] = $companyData['companyCity'];
         $result['companyZIP'] = $companyData['companyZIP'];
-        $result['companyCountry'] = $companyData['companyCountry'];
         $result['companyCountry'] = $companyData['companyCountry'];
         $result['companyCountryFull'] = $companyData['companyCountryFull'];
         $result['ICO'] = $companyData['ICO'];
