@@ -19,7 +19,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 class Wc_Rw_Order_Data_Export
 {
 
-    const VERSION = '2.8.1';
+    const VERSION = '2.9.0';
 
     /**
      * Wc_Rw_Order_Data_Export constructor.

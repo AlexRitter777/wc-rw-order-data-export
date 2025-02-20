@@ -13,6 +13,7 @@ return [
     'diabetes1.ae' => 'ae',
     'diabetes1.ge' => 'ge',
     'med24.am' => 'am',
+    'diabetes5.com' => 'com'
 
 ];
 
