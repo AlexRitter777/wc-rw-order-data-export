@@ -1131,15 +1131,20 @@ class Wc_Rw_Order_Data_Export_Data_Getter
             return false;
         }
 
+        //Shipping tracking
+        $data['shippingTracking'] = $order->get_meta('wc_wr_order_data_export_shipping_tracking');
+
         //Seller
         $data += $this->getCompanyData($this->company_data);
-
         //Client
-        $data['clientBillingName'] = $order->get_billing_first_name() . ' ' . $order->get_billing_last_name();
-        $data['clientBillingAddress1'] = $order->get_billing_address_1();
-        $data['clientBillingAddress2'] = $order->get_billing_address_2();
-        $data['clientBillingPostcode'] = $order->get_billing_postcode();
-        $data['clientBillingCity'] = $order->get_billing_city();
+        $clientBillingFirstName = Wc_Rw_Order_Data_Export_Transliterator::transliterate($order->get_billing_first_name());
+        $clientBillingLastName = Wc_Rw_Order_Data_Export_Transliterator::transliterate($order->get_billing_last_name());
+
+        $data['clientBillingName'] = $clientBillingFirstName . ' ' . $clientBillingLastName;
+        $data['clientBillingAddress1'] = Wc_Rw_Order_Data_Export_Transliterator::transliterate($order->get_billing_address_1());
+        $data['clientBillingAddress2'] = Wc_Rw_Order_Data_Export_Transliterator::transliterate($order->get_billing_address_2());
+        $data['clientBillingPostcode'] = Wc_Rw_Order_Data_Export_Transliterator::transliterate($order->get_billing_postcode());
+        $data['clientBillingCity'] = Wc_Rw_Order_Data_Export_Transliterator::transliterate($order->get_billing_city());
 
 
         //Client Billing Country

@@ -42,6 +42,10 @@ class Wc_Rw_Order_Data_Export_Pdf_Invoices
         // Display custom exchange rate field in WooCommerce order edit page
         add_action( 'woocommerce_admin_order_data_after_order_details', [$this, 'wc_rw_show_custom_order_meta_field_exchange_rate'], 10, 1);
 
+        // Display custom shipping tracking field in WooCommerce order edit page
+        add_action( 'woocommerce_admin_order_data_after_order_details', [$this, 'wc_rw_show_custom_order_meta_field_shipping_tracking'], 10, 1);
+
+
         // Save custom invoice date field when saving order details
         add_action( 'woocommerce_process_shop_order_meta', [$this, 'wc_rw_save_general_details_invoice_date'], 10, 1);
 
@@ -54,6 +58,9 @@ class Wc_Rw_Order_Data_Export_Pdf_Invoices
         // Save custom exchange rate field when saving order details
         add_action( 'woocommerce_process_shop_order_meta', [$this, 'wc_rw_save_general_details_order_exchange_rate'], 10, 1);
 
+        // Save shipping tracking field when saving order details
+        add_action( 'woocommerce_process_shop_order_meta', [$this, 'wc_rw_save_general_details_shipping_tracking'], 10, 1);
+
         // Hide custom meta fields on the order edit page (invoice date)
         add_filter('is_protected_meta', [$this, 'wc_rw_hide_invoice_date_meta_field'], 10, 2);
 
@@ -65,6 +72,9 @@ class Wc_Rw_Order_Data_Export_Pdf_Invoices
 
         // Hide custom meta fields on the order edit page (exchange rate)
         add_filter('is_protected_meta', [$this, 'wc_rw_hide_exchange_rate_meta_field'], 10, 2);
+
+        // Hide custom meta fields on the order edit page (shipping tracking)
+        add_filter('is_protected_meta', [$this, 'wc_rw_hide_shipping_tracking_meta_field'], 10, 2);
 
         // Generate PDF for invoice via admin-post
         add_action('admin_post_generate_pdf_invoice', [$this, 'wc_rw_generate_pdf_invoice']);
@@ -201,7 +211,8 @@ class Wc_Rw_Order_Data_Export_Pdf_Invoices
      *
      * @param WC_Order $order
      */
-    public function wc_rw_show_custom_order_meta_field_exchange_rate(WC_Order $order){
+    public function wc_rw_show_custom_order_meta_field_exchange_rate(WC_Order $order): void
+    {
 
         $exchange_rate = $order->get_meta( 'wc_wr_order_data_export_order_exchange_rate' );
 
@@ -221,6 +232,30 @@ class Wc_Rw_Order_Data_Export_Pdf_Invoices
         )) ;
 
     }
+
+    /**
+     * Displays a custom meta field for the package shipping tracking on the WooCommerce order edit page.
+     *
+     * @param WC_Order $order
+     */
+    public function wc_rw_show_custom_order_meta_field_shipping_tracking(WC_Order $order): void
+    {
+
+        $shipping_tracking = $order->get_meta( 'wc_wr_order_data_export_shipping_tracking' );
+
+        woocommerce_wp_text_input( array(
+            'id' => 'wc_rw_ode_shipping_tracking',
+            'label' => 'Shipping tracking:',
+            'wrapper_class' => 'form-field-wide wc-rw-data-export-invoice-date',
+            'style' => 'width:100%;',
+            'value' => $shipping_tracking,
+            'description' => '',
+            'type' => 'text',
+
+        )) ;
+
+    }
+
 
     /**
      * Saves the custom invoice date field when updating the order in the WooCommerce admin.
@@ -280,6 +315,20 @@ class Wc_Rw_Order_Data_Export_Pdf_Invoices
             update_post_meta( $order_id, 'wc_wr_order_data_export_order_exchange_rate', $exchange_rate ) ;
         } else {
             delete_post_meta($order_id, 'wc_wr_order_data_export_order_exchange_rate');
+        }
+    }
+
+    /**
+     * Saves the shipping tracking field when updating the order in the WooCommerce admin.
+     *
+     * @param int $order_id
+     */
+    public function wc_rw_save_general_details_shipping_tracking(int $order_id){
+        if(!empty($_POST['wc_rw_ode_shipping_tracking'])) {
+            $shipping_tracking = $_POST['wc_rw_ode_shipping_tracking'];
+            update_post_meta( $order_id, 'wc_wr_order_data_export_shipping_tracking', $shipping_tracking ) ;
+        } else {
+            delete_post_meta($order_id, 'wc_wr_order_data_export_shipping_tracking');
         }
     }
 
@@ -347,6 +396,23 @@ class Wc_Rw_Order_Data_Export_Pdf_Invoices
     {
 
         if( in_array($meta_key, array('wc_wr_order_data_export_order_exchange_rate'))){
+            return true;
+        }
+        return $protected;
+
+    }
+
+    /**
+     * Hides the shipping tracking meta field on the WooCommerce order page.
+     *
+     * @param bool $protected
+     * @param string $meta_key
+     * @return bool
+     */
+    public function wc_rw_hide_shipping_tracking_meta_field(bool $protected, string $meta_key) : bool
+    {
+
+        if( in_array($meta_key, array('wc_wr_order_data_export_shipping_tracking'))){
             return true;
         }
         return $protected;

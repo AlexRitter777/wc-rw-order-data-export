@@ -20,6 +20,9 @@ delete_option('wc_rw_order_data_export_bank_country');
 delete_post_meta_by_key('wc_wr_order_data_export_invoice_date');
 delete_post_meta_by_key('wc_wr_order_data_export_credit_note_date');
 delete_post_meta_by_key('wc_wr_order_data_export_proforma_date');
+delete_post_meta_by_key('wc_wr_order_data_export_order_exchange_rate');
+delete_post_meta_by_key('wc_wr_order_data_export_shipping_tracking');
+
 
 // Delete product meta (Product-specific metadata)
 delete_post_meta_by_key('_wc_rw_order_data_export_alter_product_name');

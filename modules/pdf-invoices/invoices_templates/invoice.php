@@ -82,13 +82,21 @@
                         <span class="text-gray"><?= __('Issued on', 'wc-rw-order-data-export'); ?></span><br>
                         <span class="text-gray"><?= __('Due on', 'wc-rw-order-data-export'); ?></span><br>
                         <span class="text-gray"><?= __('Taxable fulfillment due', 'wc-rw-order-data-export'); ?></span><br>
-                        <span>&#160</span>
+                        <?php if(!empty($shippingTracking)): ?>
+                            <span class="text-gray"><?= __('Shipping tracking', 'wc-rw-order-data-export'); ?></span>
+                        <?php else: ?>
+                            <span>&#160</span>
+                        <?php endif; ?>
                     </td>
                     <td class="col-5">
                         <span><?= $invoiceDate; ?></span><br>
                         <span><?= $maturityDate; ?></span><br>
                         <span><?= $invoiceDate; ?></span><br>
-                        <span>&#160</span>
+                        <?php if(!empty($shippingTracking)): ?>
+                            <span><?= $shippingTracking; ?></span>
+                        <?php else: ?>
+                            <span>&#160</span>
+                        <?php endif; ?>
                     </td>
                 </tr>
             </table>
