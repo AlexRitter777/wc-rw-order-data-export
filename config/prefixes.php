@@ -3,7 +3,7 @@
 return [
 
     'sensor.loc' =>'ts',// test web
-    'diabetas1-ae.loc'=>'al',//test web
+    'diabetes1-ae.loc'=>'al',//test web
     'diabetyk1.pl' => 'pl',
     'diamag.bg' => 'bg',
     'sensoriailibre.lt' => 'lt',
