@@ -2,7 +2,7 @@
 /**
  * Plugin Name: WooCommerce RW Order Data Export
  * Description: Creates and sends to customers PDF invoices, credit notes, and proformas. Generates XML reports for importing into Entry software. Produces CSV export reports for VAT EU declaration purposes.
- * Version: 2.10.1
+ * Version: 2.10.2
  * Author: Alexej Bogačev (RAIN WOOLF s.r.o.)
  * Text Domain: wc-rw-order-data-export
  * Domain Path: /languages
