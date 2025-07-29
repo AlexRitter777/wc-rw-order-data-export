@@ -714,10 +714,10 @@ class Wc_Rw_Order_Data_Export_Pdf_Invoices
             woocommerce_wp_text_input(
                 array(
                     'id' => '_wc_rw_order_data_export_alter_product_name',
-                    'label' => __('Альтернативное название', 'woocommerce'),
-                    'placeholder' => 'Название для инвойса',
+                    'label' => __('Alternative Name', 'wc-rw-order-data-export'),
+                    'placeholder' => __('Name for invoice', 'wc-rw-order-data-export'),
                     'desc_tip' => 'true',
-                    'description' => __('Введите название товара, которое будет отобрадаться в инвойсе.', 'woocommerce')
+                    'description' => __('Enter the product name that will appear on the invoice.', 'wc-rw-order-data-export')
                 )
             );
 
